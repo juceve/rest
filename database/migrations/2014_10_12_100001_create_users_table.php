@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password');
             // $table->foreignId('sucursale_id')->constrained();
             $table->string('avatar')->default('/avatars/default.jpg');
+            $table->boolean('estado')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

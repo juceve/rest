@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SucursaleController;
 use App\Http\Controllers\TutoreController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,8 +26,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('can:home')->name('home');
+Route::resource('users',UserController::class)->only(['index','edit','update'])->names('users');
+Route::resource('roles', RoleController::class)->names('roles');
 Route::resource('empresas',EmpresaController::class)->names('empresas');
+Route::resource('sucursales',SucursaleController::class)->names('sucursales');
 Route::resource('tutores',TutoreController::class)->names('tutores');
 Route::resource('menus',MenuController::class)->names('menus');

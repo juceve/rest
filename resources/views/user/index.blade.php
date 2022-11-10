@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-Empresas Registradas |
+Usuarios Registrados | 
 @endsection
 
 @section('content')
@@ -13,18 +13,18 @@ Empresas Registradas |
                     <div style="display: flex; justify-content: space-between; align-items: center;">
 
                         <span id="card_title">
-                            LISTADO DE EMPRESAS
+                            LISTADO DE USUARIOS
                         </span>
-                        @can('empresas.create')
+
+                        @can('users.create')
                         <div class="float-right">
-                            <a href="{{ route('empresas.create') }}" class="btn btn-primary btn-sm float-right"
+                            <a href="#" class="btn btn-primary btn-sm float-right"
                                 data-placement="left">
                                 <i class="fas fa-plus"></i>
                                 Nuevo
                             </a>
                         </div>
                         @endcan
-
                     </div>
                 </div>
                 <div class="card-body">
@@ -33,23 +33,23 @@ Empresas Registradas |
                             <thead class="thead">
                                 <tr>
                                     <th>ID</th>
-                                    <th>RAZON SOCIAL</th>
-                                    <th>TELÉFONO</th>
-                                    <th>NIT</th>
+                                    <th>NOMBRE</th>
+                                    <th>EMAIL</th>
+                                    <th>ROL</th>
                                     <th>ESTADO</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($empresas as $empresa)
+                                @foreach ($usuarios as $usuario)
                                 <tr>
-                                    <td>{{ $empresa->id }}</td>
+                                    <td>{{ $usuario->id }}</td>
 
-                                    <td>{{ $empresa->razonsocial }}</td>
-                                    <td>{{ $empresa->telefono }}</td>
-                                    <td>{{ $empresa->nit }}</td>
+                                    <td>{{ $usuario->name }}</td>
+                                    <td>{{ $usuario->email }}</td>
+                                    <td></td>
                                     <td>
-                                        @if ($empresa->estado)
+                                        @if ($usuario->estado)
                                         <span class="badge bg-success">ACTIVO</span>
                                         @else
                                         <span class="badge bg-danger">INACTIVO</span>
@@ -57,27 +57,25 @@ Empresas Registradas |
                                     </td>
 
                                     <td class="text-end">
-                                        <form action="{{ route('empresas.destroy',$empresa->id) }}" method="POST"
+                                        <form action="" method="POST"
                                             class="desactivar">
-                                            <a class="btn btn-sm btn-primary "
-                                                href="{{ route('empresas.show',$empresa->id) }}" title="Ver"><i
-                                                    class="fa fa-fw fa-eye"></i></a>
-                                            @can('empresas.edit')
+                                            
+                                            @can('users.edit')
                                             <a class="btn btn-sm btn-success"
-                                                href="{{ route('empresas.edit',$empresa->id) }}" title="Editar"><i
-                                                    class="fa fa-fw fa-edit"></i></a>
+                                            href="{{ route('users.edit',$usuario->id) }}" title="Editar"><i
+                                                class="fa fa-fw fa-edit"></i></a>
                                             @endcan
                                             @csrf
                                             @method('DELETE')
-                                           @can('empresas.destroy')
-                                           @if ($empresa->estado)
-                                           <button type="submit" class="btn btn-danger btn-sm"><i
-                                                   class="fas fa-power-off" title="Desactivar"></i></button>
-                                           @else
-                                           <button type="submit" class="btn btn-info btn-sm"><i
-                                                   class="fas fa-power-off" title="Activar"></i></button>
-                                           @endif
-                                           @endcan
+                                            @can('users.destroy')
+                                            @if ($usuario->estado)
+                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                    class="fas fa-power-off" title="Desactivar"></i></button>
+                                            @else
+                                            <button type="submit" class="btn btn-info btn-sm"><i
+                                                    class="fas fa-power-off" title="Activar"></i></button>
+                                            @endif
+                                            @endcan
 
                                         </form>
                                     </td>

@@ -11,12 +11,16 @@ use Illuminate\Http\Request;
  */
 class EmpresaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('can:empresas.index')->only('index');
+        $this->middleware('can:empresas.edit')->only('edit','update');
+        $this->middleware('can:empresas.create')->only('create','store');
+        $this->middleware('can:empresas.destroy')->only('destroy');
+    }
+
     public $foto = null;
+    
     public function index()
     {
         $empresas = Empresa::all();

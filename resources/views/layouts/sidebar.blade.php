@@ -4,12 +4,11 @@
     <div class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
       <div class="d-flex align-items-center">
         <div class="avatar-lg me-4">
-          <img class="rounded-circle p-2" src="{{Storage::url('img/favicon_food.png')}}" width="60px" alt=""> 
+          <img class="rounded-circle p-2" src="{{Storage::url('img/favicon_food.png')}}" width="60px" alt="">
         </div>
         <div class="d-block">
-          <h4
-            style="color: rgb(214, 189, 121) ">{{config('app.name')}}
-        </h4>
+          <h4 style="color: rgb(214, 189, 121) ">{{config('app.name')}}
+          </h4>
         </div>
       </div>
       <div class="collapse-close d-md-none">
@@ -31,14 +30,17 @@
             style="color: rgb(214, 189, 121) ">{{config('app.name')}}</span>
         </a>
       </li>
+      @can('home')
       <li class="nav-item {{ (request()->is('home')) ? 'active' : '' }}">
-        <a href="/home" class="nav-link">
+        <a href="{{route('home')}}" class="nav-link">
           <span class="sidebar-icon">
             <i class="fas fa-tachometer-alt"></i>
           </span>
           <span class="sidebar-text">Dashboard</span>
         </a>
       </li>
+      @endcan
+      @can('menus.index')
       <li class="nav-item {{ (request()->is('menus*')) ? 'active' : '' }}">
         <a href="{{route('menus.index')}}" class="nav-link" class="nav-link d-flex justify-content-between">
           <span>
@@ -49,6 +51,8 @@
           </span>
         </a>
       </li>
+      @endcan
+      @can('tutores.index')
       <li class="nav-item {{ (request()->is('tutores*')) ? 'active' : '' }}">
         <a href="{{route('tutores.index')}}" class="nav-link">
           <span class="sidebar-icon">
@@ -57,6 +61,8 @@
           <span class="sidebar-text">Tutores</span>
         </a>
       </li>
+      @endcan
+      @if (Auth::user()->hasRole('SuperAdmin'))
       <li class="nav-item ">
         <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
           data-bs-target="#submenu-app">
@@ -74,18 +80,40 @@
             </svg>
           </span>
         </span>
-        <div class="multi-level collapse {{ (request()->is('empresas*')) ? 'show' : '' }}" role="list" id="submenu-app"
-          aria-expanded="false">
+        <div
+          class="multi-level collapse {{ (request()->is('empresas*')) ? 'show' : '' }} {{ (request()->is('roles*')) ? 'show' : '' }} {{ (request()->is('users*')) ? 'show' : '' }}"
+          role="list" id="submenu-app" aria-expanded="false">
           <ul class="flex-column nav">
+            @can('empresas.index')
             <li class="nav-item {{ (request()->is('empresas*')) ? 'active' : '' }}">
               <a class="nav-link" href="{{route('empresas.index')}}">
                 <i class="fas fa-fw fa-building"></i>
                 <span class="sidebar-text">Empresas</span>
               </a>
             </li>
+            @endcan
+            @can('users.index')
+            <li class="nav-item {{ (request()->is('users*')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('users.index')}}">
+                <i class="fas fa-users"></i>
+                <span class="sidebar-text">Usuarios</span>
+              </a>
+            </li>
+            @endcan
+            @can('roles.index')
+            <li class="nav-item {{ (request()->is('roles*')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('roles.index')}}">
+                <i class="fas fa-user-tag"></i>
+                <span class="sidebar-text">Roles - Permisos</span>
+              </a>
+            </li>
+            @endcan
+
           </ul>
         </div>
       </li>
+      @endif
+
     </ul>
   </div>
 </nav>

@@ -12,9 +12,7 @@
     </div>
   </div>
   <div class="card-body">
-    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla quas voluptate, aliquid
-      deserunt
-      mollitia illo architecto soluta laboriosam et a? </span>
+   @dump(Auth::check())
   </div>
 </div>
 @endsection

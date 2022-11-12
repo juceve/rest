@@ -57,29 +57,52 @@ Empresas Registradas |
                                     </td>
 
                                     <td class="text-end">
-                                        <form action="{{ route('empresas.destroy',$empresa->id) }}" method="POST"
-                                            class="desactivar">
-                                            <a class="btn btn-sm btn-primary "
-                                                href="{{ route('empresas.show',$empresa->id) }}" title="Ver"><i
-                                                    class="fa fa-fw fa-eye"></i></a>
-                                            @can('empresas.edit')
-                                            <a class="btn btn-sm btn-success"
-                                                href="{{ route('empresas.edit',$empresa->id) }}" title="Editar"><i
-                                                    class="fa fa-fw fa-edit"></i></a>
-                                            @endcan
-                                            @csrf
-                                            @method('DELETE')
-                                           @can('empresas.destroy')
-                                           @if ($empresa->estado)
-                                           <button type="submit" class="btn btn-danger btn-sm"><i
-                                                   class="fas fa-power-off" title="Desactivar"></i></button>
-                                           @else
-                                           <button type="submit" class="btn btn-info btn-sm"><i
-                                                   class="fas fa-power-off" title="Activar"></i></button>
-                                           @endif
-                                           @endcan
-
-                                        </form>
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
+                                                id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                Opciones
+                                                <i class="fas fa-caret-right"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-dark"
+                                                aria-labelledby="dropdownMenuButton1">
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('empresas.show',$empresa->id) }}" title="Ver">
+                                                        <i class="fa fa-fw fa-eye"> Ver</i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    @can('empresas.edit')
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('empresas.edit',$empresa->id) }}"
+                                                        title="Editar"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                                    @endcan
+                                                </li>
+                                                <li>
+                                                    {{-- @can('sucursales.index') --}}
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('sucursales',$empresa->id) }}"
+                                                        title="Editar"><i class="fas fa-sitemap"></i> Sucursales</a>
+                                                    {{-- @endcan --}}
+                                                </li>
+                                                <form action="{{ route('empresas.destroy',$empresa->id) }}" method="POST"
+                                                    class="desactivar">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    @can('empresas.destroy')
+                                                        @if ($empresa->estado)
+                                                        <button type="submit" class="dropdown-item btn btn-link"><i
+                                                                class="fas fa-power-off" title="Desactivar"></i> Desactivar</button>
+                                                        @else
+                                                        <button type="submit" class="dropdown-item btn btn-link"><i
+                                                                class="fas fa-power-off" title="Activar"></i> Activar</button>
+                                                        @endif
+                                                    @endcan
+                                                </form>
+                                            </ul>
+                                        </div>
+                                        
                                     </td>
                                 </tr>
                                 @endforeach

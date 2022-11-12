@@ -28,4 +28,9 @@ class Empresa extends Model
    * @var array
    */
   protected $fillable = ['razonsocial', 'direccion', 'telefono', 'email', 'nit', 'avatar', 'responsable', 'telefono_responsable', 'estado'];
+
+  public function sucursales()
+    {
+        return $this->hasMany('App\Models\Sucursale', 'empresa_id', 'id');
+    }
 }

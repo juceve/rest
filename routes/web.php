@@ -3,9 +3,11 @@
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SucursaleController;
 use App\Http\Controllers\TutoreController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Sucursales;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +32,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->midd
 Route::resource('users',UserController::class)->only(['index','edit','update'])->names('users');
 Route::resource('roles', RoleController::class)->names('roles');
 Route::resource('empresas',EmpresaController::class)->names('empresas');
-Route::resource('sucursales',SucursaleController::class)->names('sucursales');
+
+// SUCURSALES
+Route::get('sucursales/{id}',Sucursales::class)->name('sucursales');
+
+
 Route::resource('tutores',TutoreController::class)->names('tutores');
 Route::resource('menus',MenuController::class)->names('menus');
+Route::get('settings',[SettingController::class,'index'])->name('settings');

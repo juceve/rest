@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empresa;
+use App\Models\Sucursale;
 use Illuminate\Http\Request;
 
 /**
@@ -60,6 +61,15 @@ class EmpresaController extends Controller
             $empresa->avatar = $path;
             $empresa->save();
         }
+
+        $sucursale = Sucursale::create([
+            'nombre' => $empresa->razonsocial,
+            'direccion' => $empresa->direccion,
+            'telefono' => $empresa->telefono,
+            'empresa_id' => $empresa->id,
+            'tipo' => 'CENTRAL',
+        ]);
+
         return redirect()->route('empresas.index')
             ->with('success', 'Empresa creada correctamente.');
     }

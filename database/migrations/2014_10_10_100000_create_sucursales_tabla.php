@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('direccion');
-            $table->string('telefono');          
+            $table->string('telefono');   
+            $table->foreignId('empresa_id')->constrained();
+            $table->enum('tipo',['CENTRAL','SUCURSAL'])->default('SUCURSAL');
             $table->boolean('estado')->default(true);
             $table->timestamps();
         });

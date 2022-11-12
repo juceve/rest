@@ -15,9 +15,10 @@
     <link type="text/css" href="{{asset('admin/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
     <!-- Volt CSS -->
     <link type="text/css" href="{{asset('admin/css/volt.css')}}" rel="stylesheet">
-    <!-- DataTables -->    
-    <link type="text/css" href="{{asset('admin/vendor/datatables/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
-    <link rel="icon" type="image/jpg" href="{{Storage::url('img/favicon_food.png')}}"/>
+    <!-- DataTables -->
+    <link type="text/css" href="{{asset('admin/vendor/datatables/media/css/jquery.dataTables.min.css')}}"
+        rel="stylesheet">
+    <link rel="icon" type="image/jpg" href="{{Storage::url('img/favicon_food.png')}}" />
     @livewireStyles
     @yield('css')
 </head>
@@ -77,16 +78,25 @@
     <script src="{{asset('admin/vendor/datatables/media/js/jquery.dataTables.min.js')}}"></script>
     @livewireScripts
     @if (session('success') != '')
-        {
-        <script>
-            Swal.fire(
+    {
+    <script>
+        Swal.fire(
                 'Excelente!',
                 '{{ session('success') }}',
                 'success'
             );
-        </script>
-        }
+    </script>
+    }
     @endif
+    <script>
+        $('.table-responsive').on('show.bs.dropdown', function() {
+                $('.table-responsive').css("overflow", "inherit");
+            });
+
+            $('.table-responsive').on('hide.bs.dropdown', function() {
+                $('.table-responsive').css("overflow", "auto");
+            })
+    </script>
     <script src="{{asset('admin/js/custom.js')}}"></script>
     @yield('js')
 </body>

@@ -81,8 +81,13 @@
           </span>
         </span>
         <div
-          class="multi-level collapse {{ (request()->is('empresas*')) ? 'show' : '' }} {{ (request()->is('roles*')) ? 'show' : '' }} {{ (request()->is('users*')) ? 'show' : '' }}"
+          class="multi-level collapse 
+          {{ (request()->is('empresas*')) ? 'show' : '' }} 
+          {{ (request()->is('settings*')) ? 'show' : '' }} 
+          {{ (request()->is('roles*')) ? 'show' : '' }} 
+          {{ (request()->is('users*')) ? 'show' : '' }}"
           role="list" id="submenu-app" aria-expanded="false">
+
           <ul class="flex-column nav">
             @can('empresas.index')
             <li class="nav-item {{ (request()->is('empresas*')) ? 'active' : '' }}">
@@ -91,7 +96,7 @@
                 <span class="sidebar-text">Empresas</span>
               </a>
             </li>
-            @endcan
+            @endcan            
             @can('users.index')
             <li class="nav-item {{ (request()->is('users*')) ? 'active' : '' }}">
               <a class="nav-link" href="{{route('users.index')}}">
@@ -108,7 +113,14 @@
               </a>
             </li>
             @endcan
-
+            @can('settings')
+            <li class="nav-item {{ (request()->is('settings')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('settings')}}">
+                <i class="fas fa-sliders-h"></i>
+                <span class="sidebar-text">Comp. de Inicio</span>
+              </a>
+            </li>
+            @endcan
           </ul>
         </div>
       </li>

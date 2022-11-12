@@ -27,6 +27,7 @@ class Sucursale extends Model
 		'direccion' => 'required',
 		'telefono' => 'required',
 		'estado' => 'required',
+        'empresa_id' => 'required',
     ];
 
     protected $perPage = 20;
@@ -36,12 +37,13 @@ class Sucursale extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre','direccion','telefono','estado'];
+    protected $fillable = ['nombre','direccion','telefono', 'empresa_id', 'tipo', 'estado'];
 
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+    public function empresa()
+    {
+        return $this->hasOne('App\Models\Empresa', 'id', 'empresa_id');
+    }
+    
     public function nivelcursos()
     {
         return $this->hasMany('App\Models\Nivelcurso', 'sucursale_id', 'id');

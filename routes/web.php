@@ -34,7 +34,7 @@ Route::resource('roles', RoleController::class)->names('roles');
 Route::resource('empresas',EmpresaController::class)->names('empresas');
 
 // SUCURSALES
-Route::get('sucursales/{id}',Sucursales::class)->name('sucursales');
+Route::get('sucursales/{id}',Sucursales::class)->middleware('can:sucursales')->name('sucursales');
 
 
 Route::resource('tutores',TutoreController::class)->names('tutores');

@@ -29,6 +29,11 @@ class RolSeeder extends Seeder
         Permission::create(['name' => 'empresas.create','grupo' => 'EMPRESAS', 'descripcion' => 'Crear'])->syncRoles([$role1]);
         Permission::create(['name' => 'empresas.edit','grupo' => 'EMPRESAS', 'descripcion' => 'Editar'])->syncRoles([$role1]);
         Permission::create(['name' => 'empresas.destroy','grupo' => 'EMPRESAS', 'descripcion' => 'Eliminar'])->syncRoles([$role1]);
+        Permission::create(['name' => 'sucursales','grupo' => 'SUCURSALES', 'descripcion' => 'Ver listado'])->syncRoles([$role1]);        
+        Permission::create(['name' => 'sucursales.create','grupo' => 'SUCURSALES', 'descripcion' => 'Crear'])->syncRoles([$role1]);
+        Permission::create(['name' => 'sucursales.edit','grupo' => 'SUCURSALES', 'descripcion' => 'Editar'])->syncRoles([$role1]);
+        Permission::create(['name' => 'sucursales.destroy','grupo' => 'SUCURSALES', 'descripcion' => 'Eliminar'])->syncRoles([$role1]);
+        Permission::create(['name' => 'sucursales.disable','grupo' => 'SUCURSALES', 'descripcion' => 'Desactivar'])->syncRoles([$role1]);
 
         Permission::create(['name' => 'roles.index','grupo' => 'ROLES', 'descripcion' => 'Ver listado'])->syncRoles([$role1]);
         Permission::create(['name' => 'roles.create','grupo' => 'ROLES', 'descripcion' => 'Crear'])->syncRoles([$role1]);

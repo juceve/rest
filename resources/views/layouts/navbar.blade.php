@@ -12,6 +12,7 @@
 
               <div class="media-body  text-dark align-items-center d-none d-lg-block">
                 <span class="mb-0 font-small fw-bold text-gray-900">{{ Auth::user()->name }}</span>
+                <small class="text-success">[{{Auth::user()->roles->pluck('name')[0]}}]</small> 
               </div>
               <img class="avatar rounded-circle ms-2" alt="Image placeholder"
                 src="{{ Storage::url(Auth::user()->avatar)}}">

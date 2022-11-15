@@ -8,15 +8,21 @@
             <div style="display: flex; justify-content: space-between; align-items: center;">
 
                 <span id="card_title">
-                    SUCURSALES VINCULADAS
+                    SUCURSALES VINCULADAS - <strong>{{$empresa->razonsocial}}</strong>
                 </span>
                 {{-- @can('empresas.create') --}}
                 <div class="float-right">
+                    @can('sucursales.create')
                     <button class="btn btn-primary btn-sm float-right" data-placement="left" data-bs-toggle="modal"
                         data-bs-target="#modalNuevo">
                         <i class="fas fa-plus"></i>
                         Nuevo
                     </button>
+                    @endcan
+                    <a href="{{ route('empresas.index') }}" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i>
+                        Volver
+                    </a>
                 </div>
                 {{-- @endcan --}}
 
@@ -127,13 +133,27 @@
                             </td>
                             <td>
 
-                                {{-- <a class="btn btn-sm btn-primary " href="{{ route('productos.show', $producto->id) }}"
-                                    title="Ver"><i class="fa fa-fw fa-eye "></i></a>
-                                <a class="btn btn-sm btn-success" href="{{ route('productos.edit', $producto->id) }}"
-                                    title="Editar"><i class="fa fa-fw fa-edit "></i></a> --}}
-                                {{-- <button type="submit" class="btn btn-danger btn-sm" title="Eliminar"><i
-                                        class="fa fa-fw fa-trash "></i></button> --}}
-                                </form>
+                                @can('sucursales.edit')
+                                <button class="btn btn-sm btn-info" title="Editar" onclick="editar({{$sucursale->id}})">
+                                    <i class="fa fa-fw fa-edit "></i>
+                                </button>
+                                @endcan
+
+                                @can('sucursales.disable')
+                                @if ($sucursale->estado)
+                                <button type="submit" class="btn btn-warning btn-sm disable" title="Desactivar"
+                                    onclick="desactivar({{$sucursale->id}})"><i class="fas fa-power-off"></i></button>
+                                @else
+                                <button type="submit" class="btn btn-success btn-sm disable" title="Activar"
+                                    onclick="desactivar({{$sucursale->id}})"><i class="fas fa-power-off"></i></button>
+                                @endif
+                                @endcan
+
+                                @can('sucursales.destroy')
+                                <button type="submit" class="btn btn-danger btn-sm delete" title="Eliminar"
+                                    onclick="eliminar({{$sucursale->id}})"><i class="fa fa-fw fa-trash "></i></button>
+                                @endcan
+
                             </td>
                         </tr>
                         @endforeach
@@ -161,7 +181,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalNuevoLabel">Registro de Sucursal</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="resetear"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="resetear"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -187,8 +208,51 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" wire:click="resetear">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        wire:click="resetear">Cerrar</button>
                     <button type="button" class="btn btn-primary" wire:click="save">Registrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div wire:ignore class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel"
+        aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNuevoLabel">Editar Sucursal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="resetear"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4 mb-3">
+                            <label for="">NOMBRE</label>
+                        </div>
+                        <div class="col-8 mb-3">
+                            <input type="text" wire:model.defer="nombre" class="form-control">
+                        </div>
+                        <div class="col-4 mb-3">
+                            <label for="">DIRECCION</label>
+                        </div>
+                        <div class="col-8 mb-3">
+                            <input type="text" wire:model.defer="direccion" class="form-control">
+                        </div>
+                        <div class="col-4 mb-3">
+                            <label for="">TELEFONO</label>
+                        </div>
+                        <div class="col-8 mb-3">
+                            <input type="text" wire:model.defer="telefono" class="form-control">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        wire:click="resetear">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        wire:click="update">Guardar</button>
                 </div>
             </div>
         </div>
@@ -204,6 +268,76 @@
             'success'
             )
         });
+
+
+    function desactivar(id) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Modificar Estado!',
+            text: "Esta seguro de realizar la operación?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, continuar!',
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emit('desactivar',id);
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Operación cancelada',
+                    'No se modificó ningún registro',
+                    'error'
+                )
+            }
+        })
+    }
+
+    function eliminar(id) {    
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Elminar de la Base de Datos!',
+            text: "Esta seguro de realizar la operación?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, continuar!',
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emit('eliminar',id);
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Operación cancelada',
+                    'No se modificó ningún registro',
+                    'error'
+                )
+            }
+        });
+    }
+
+    function editar(id){
+        Livewire.emit('editar',id);
+        $('#modalEditar').modal('show');
+    }
     </script>
     @endsection
 

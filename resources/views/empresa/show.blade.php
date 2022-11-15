@@ -15,8 +15,8 @@ Datos Empresa |
                             <span class="card-title">Datos de la Empresa</span>
                         </div>
                         <div class="col-5 text-end">
-                            <button class="btn btn-primary btn-sm" onclick="history.back()"><i
-                                    class="fas fa-arrow-left"></i> Volver</button>
+                            <a href="{{route('empresas.index')}}" class="btn btn-primary btn-sm" ><i
+                                    class="fas fa-arrow-left"></i> Volver</a>
                         </div>
                     </div>
                 </div>

@@ -21,7 +21,7 @@
 
                             @include('empresa.form')
                             <div class="box-footer mt20">
-                                <a onclick="history.back()" class="btn btn-secondary mb-2" style="width: 200px"><i class="fas fa-ban"></i> Cancelar</a>
+                                <a href="{{route('empresas.index')}}" class="btn btn-secondary mb-2" style="width: 200px"><i class="fas fa-ban"></i> Cancelar</a>
                                 <button type="submit" class="btn btn-primary mb-2" style="width: 200px"><i class="fas fa-save"></i> Registrar</button>
                             </div>
                         </form>

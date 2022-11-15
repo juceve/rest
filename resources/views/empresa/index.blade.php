@@ -80,11 +80,11 @@ Empresas Registradas |
                                                     @endcan
                                                 </li>
                                                 <li>
-                                                    {{-- @can('sucursales.index') --}}
+                                                    @can('sucursales')
                                                     <a class="dropdown-item"
                                                         href="{{ route('sucursales',$empresa->id) }}"
                                                         title="Editar"><i class="fas fa-sitemap"></i> Sucursales</a>
-                                                    {{-- @endcan --}}
+                                                    @endcan
                                                 </li>
                                                 <form action="{{ route('empresas.destroy',$empresa->id) }}" method="POST"
                                                     class="desactivar">

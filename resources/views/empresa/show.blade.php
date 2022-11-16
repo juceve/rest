@@ -9,13 +9,13 @@ Datos Empresa |
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header bg-primary text-white">
                     <div class="row">
                         <div class="col-7">
                             <span class="card-title">Datos de la Empresa</span>
                         </div>
                         <div class="col-5 text-end">
-                            <a href="{{route('empresas.index')}}" class="btn btn-primary btn-sm" ><i
+                            <a href="{{route('empresas.index')}}" class="btn btn-warning btn-sm" ><i
                                     class="fas fa-arrow-left"></i> Volver</a>
                         </div>
                     </div>

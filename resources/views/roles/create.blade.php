@@ -6,7 +6,7 @@ REGISTRAR ROL
 
 @section('content')
 <div class="card">
-    <div class="card-header">
+    <div class="card-header bg-primary text-white">
         <div style="display: flex; justify-content: space-between; align-items: center;">
 
             <span id="card_title">
@@ -14,7 +14,7 @@ REGISTRAR ROL
             </span>
             {{-- @can('roles.create') --}}
             <div class="float-right">
-                <a href="javascript:void(0)" onclick="history.back()" class="btn btn-primary btn-sm float-right"
+                <a href="javascript:void(0)" onclick="history.back()" class="btn btn-warning btn-sm float-right"
                     data-placement="left">
                     <i class="fas fa-arrow-left"></i>
                     Volver

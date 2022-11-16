@@ -6,8 +6,23 @@ Editar Roles Usuarios |
 
 @section('content')
 <div class="card">
-    <div class="card-header">
-        <span>ASIGNACION DE ROLES</span>
+    <div class="card-header bg-primary text-white">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+            <span id="card_title">
+                ASIGNACIÓN DE ROLES
+            </span>
+
+            
+            <div class="float-right">
+                <a href="{{route('users.index')}}" class="btn btn-warning btn-sm float-right"
+                    data-placement="left">
+                    <i class="fas fa-arrow-left"></i>
+                    Volver
+                </a>
+            </div>
+            
+        </div>
     </div>
     <div class="card-body">
         <p class="h5">Nombre: </p>

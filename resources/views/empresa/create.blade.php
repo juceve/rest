@@ -12,8 +12,23 @@
                 @includeif('partials.errors')
 
                 <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">Registro de Empresa</span>
+                    <div class="card-header bg-primary text-white">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <span id="card_title">
+                                FORMULARIO DE REGISTRO DE EMPRESA
+                            </span>
+                
+                            
+                            <div class="float-right">
+                                <a href="{{route('empresas.index')}}" class="btn btn-warning btn-sm float-right"
+                                    data-placement="left">
+                                    <i class="fas fa-arrow-left"></i>
+                                    Volver
+                                </a>
+                            </div>
+                            
+                        </div>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('empresas.store') }}"  role="form" enctype="multipart/form-data">

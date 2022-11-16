@@ -47,8 +47,8 @@ class TipopagoController extends Controller
 
         $tipopago = Tipopago::create($request->all());
 
-        return redirect()->route('tipopagos.index')
-            ->with('success', 'Tipopago created successfully.');
+        return redirect()->route('settings')
+            ->with('success', 'Tipopago creado correctamente.');
     }
 
     /**

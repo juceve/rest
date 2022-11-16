@@ -4,7 +4,7 @@
     @endsection
 
     <div class="card ">
-        <div class="card-header">
+        <div class="card-header bg-primary text-white">
             <div style="display: flex; justify-content: space-between; align-items: center;">
 
                 <span id="card_title">
@@ -13,7 +13,7 @@
                 {{-- @can('empresas.create') --}}
                 <div class="float-right">
                     @can('sucursales.create')
-                    <button class="btn btn-primary btn-sm float-right" data-placement="left" data-bs-toggle="modal"
+                    <button class="btn btn-info btn-sm float-right" data-placement="left" data-bs-toggle="modal"
                         data-bs-target="#modalNuevo">
                         <i class="fas fa-plus"></i>
                         Nuevo

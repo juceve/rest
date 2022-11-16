@@ -5,8 +5,11 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SucursaleController;
+use App\Http\Controllers\TipopagoController;
 use App\Http\Controllers\TutoreController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Cursos\Cursos;
+use App\Http\Livewire\Settings\Settings;
 use App\Http\Livewire\Sucursales;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +39,8 @@ Route::resource('empresas',EmpresaController::class)->names('empresas');
 // SUCURSALES
 Route::get('sucursales/{id}',Sucursales::class)->middleware('can:sucursales')->name('sucursales');
 
-
+Route::resource('tipopagos', TipopagoController::class)->names('tipopagos');
 Route::resource('tutores',TutoreController::class)->names('tutores');
 Route::resource('menus',MenuController::class)->names('menus');
-Route::get('settings',[SettingController::class,'index'])->name('settings');
+Route::get('settings',Settings::class)->name('settings');
+Route::get('cursos', Cursos::class)->name('cursos');

@@ -9,7 +9,7 @@ Empresas Registradas |
     <div class="row">
         <div class="col-sm-12">
             <div class="card ">
-                <div class="card-header">
+                <div class="card-header bg-primary text-white">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
 
                         <span id="card_title">
@@ -17,7 +17,7 @@ Empresas Registradas |
                         </span>
                         @can('empresas.create')
                         <div class="float-right">
-                            <a href="{{ route('empresas.create') }}" class="btn btn-primary btn-sm float-right"
+                            <a href="{{ route('empresas.create') }}" class="btn btn-warning btn-sm float-right"
                                 data-placement="left">
                                 <i class="fas fa-plus"></i>
                                 Nuevo

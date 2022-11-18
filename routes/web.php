@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
@@ -29,7 +30,7 @@ Route::get('/', function () {
     return view('web');
 });
 
-Auth::routes();
+Auth::routes(["register" => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('can:home')->name('home');
 Route::resource('users',UserController::class)->only(['index','edit','update'])->names('users');
@@ -43,4 +44,6 @@ Route::resource('tipopagos', TipopagoController::class)->names('tipopagos');
 Route::resource('tutores',TutoreController::class)->names('tutores');
 Route::resource('menus',MenuController::class)->names('menus');
 Route::get('settings',Settings::class)->name('settings');
-Route::get('cursos', Cursos::class)->name('cursos');
+Route::get('cursos', Cursos::class)->name('cursos')->middleware('can:cursos.index');
+Route::resource('empleados', EmpleadoController::class)->names('empleados');
+Route::post('empleados/{id}/disable',[EmpleadoController::class, 'disable'])->name('empleados.disable');

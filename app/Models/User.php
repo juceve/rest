@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -23,6 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'sucursale_id',
+        'empresa_id'
     ];
 
     /**
@@ -43,4 +46,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sucursale()
+    {
+        return $this->hasOne('App\Models\Sucursale', 'id', 'sucursale_id');
+    }
+    public function empresa()
+    {
+        return $this->hasOne('App\Models\Empresa', 'id', 'empresa_id');
+    }
 }

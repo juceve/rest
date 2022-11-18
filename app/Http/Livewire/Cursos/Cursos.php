@@ -9,8 +9,9 @@ use Livewire\WithPagination;
 
 class Cursos extends Component
 {
-    use WithPagination;
+   
 
+    use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
     
@@ -34,7 +35,14 @@ class Cursos extends Component
         $cursos = Curso::where('nombre','like','%'.$this->search.'%')                        
                         ->orderBy($this->sort,$this->direction)
                         ->paginate($this->paginate);
-        $nivelcursos = Nivelcurso::all()->pluck('nombre','id');
+        $root=session('miAsignacion');
+        $nivelcursos="";
+        if(!is_null($root)){
+            $nivelcursos = Nivelcurso::where('sucursale_id',$root->sucursale_id)->pluck('nombre','id');
+        }else{
+            $nivelcursos = Nivelcurso::all()->pluck('nombre','id');
+        }
+        
         $curso = new Curso();
         return view('livewire.cursos.cursos',compact('curso','cursos','nivelcursos'))->extends('layouts.app');
     }

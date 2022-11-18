@@ -5,7 +5,7 @@
                 <span id="card_title">
                     LISTADO DE CURSOS
                 </span>
-                @can('empresas.create')
+                @can('cursos.create')
                 <div class="float-right">
                     <button class="btn btn-primary btn-sm" data-placement="left" data-bs-toggle="modal"
                         data-bs-target="#modalCurso" onclick="store()">
@@ -35,8 +35,8 @@
                         <div class="col-2 col-xl-5"></div>
                         <label class="col-md-2 col-xl-1 form-label text-lg-right">Buscar:</label>
                         <div class="col-md-4 ">
-                            <input type="search" class="form-control form-control-sm"
-                                placeholder="Buscar por nombre" wire:model="search" style="width: 100%">
+                            <input type="search" class="form-control form-control-sm" placeholder="Buscar por nombre"
+                                wire:model="search" style="width: 100%">
                         </div>
 
 
@@ -44,80 +44,87 @@
                 </form>
                 <div class="table-responsive">
                     <table class="table table-stripped table-sm">
-                    <thead class="thead">
-                        <tr class="table-primary">
-                            <th style="cursor: pointer;" wire:click="order('id')">
-                                ID
-                                {{-- Sorts --}}
-                                @if ($sort == 'id')
-                                @if ($direction == 'asc')
-                                <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
-                                @else
-                                <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
-                                @endif
-                                @else
-                                <i class="fas fa-sort float-right mt-1"></i>
-                                @endif
-                            </th>
+                        <thead class="thead">
+                            <tr class="table-primary">
+                                <th style="cursor: pointer;" wire:click="order('id')">
+                                    ID
+                                    {{-- Sorts --}}
+                                    @if ($sort == 'id')
+                                    @if ($direction == 'asc')
+                                    <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
+                                    @else
+                                    <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
+                                    @endif
+                                    @else
+                                    <i class="fas fa-sort float-right mt-1"></i>
+                                    @endif
+                                </th>
 
-                            <th style="cursor: pointer;" wire:click="order('nombre')">
-                                NOMBRE
-                                {{-- Sorts --}}
-                                @if ($sort == 'nombre')
-                                @if ($direction == 'asc')
-                                <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
-                                @else
-                                <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
-                                @endif
-                                @else
-                                <i class="fas fa-sort float-right mt-1"></i>
-                                @endif
+                                <th style="cursor: pointer;" wire:click="order('nombre')">
+                                    NOMBRE
+                                    {{-- Sorts --}}
+                                    @if ($sort == 'nombre')
+                                    @if ($direction == 'asc')
+                                    <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
+                                    @else
+                                    <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
+                                    @endif
+                                    @else
+                                    <i class="fas fa-sort float-right mt-1"></i>
+                                    @endif
 
-                            </th>
-                            <th style="cursor: pointer;" wire:click="order('nivelcurso_id')">
-                                NIVEL
-                                {{-- Sorts --}}
-                                @if ($sort == 'nivelcurso_id')
-                                @if ($direction == 'asc')
-                                <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
-                                @else
-                                <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
-                                @endif
-                                @else
-                                <i class="fas fa-sort float-right mt-1"></i>
-                                @endif
-                            </th>
-                            <th style="width: 150px"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($cursos as $item)
-                        <tr>
-                            <td>{{$item->id}}</td>
-                            <td>{{$item->nombre}}</td>
-                            <td>{{$item->nivelcurso->nombre}}</td>
-                            <td align="right">
-                                <button class="btn btn-warning btn-sm e" title="Editar" onclick="update()"
-                                    wire:click="edit({{ $item->id }})" data-bs-toggle="modal"
-                                    data-bs-target="#modalCurso">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-danger btn-sm text-white" title="Eliminar"
-                                    onclick="eliminar({{$item->id}})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                </th>
+                                <th style="cursor: pointer;" wire:click="order('nivelcurso_id')">
+                                    NIVEL
+                                    {{-- Sorts --}}
+                                    @if ($sort == 'nivelcurso_id')
+                                    @if ($direction == 'asc')
+                                    <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
+                                    @else
+                                    <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
+                                    @endif
+                                    @else
+                                    <i class="fas fa-sort float-right mt-1"></i>
+                                    @endif
+                                </th>
+                                <th style="width: 150px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($cursos as $item)
+                            <tr>
+                                <td>{{$item->id}}</td>
+                                <td>{{$item->nombre}}</td>
+                                <td>{{$item->nivelcurso->nombre}}</td>
+                                <td align="right">
+                                    @can('cursos.edit')
+                                    <button class="btn btn-warning btn-sm e" title="Editar" onclick="update()"
+                                        wire:click="edit({{ $item->id }})" data-bs-toggle="modal"
+                                        data-bs-target="#modalCurso">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    @endcan
+                                    @can('cursos.destroy')
+                                    <button class="btn btn-danger btn-sm text-white" title="Eliminar"
+                                        onclick="eliminar({{$item->id}})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    @endcan
+
+
+
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                
+
             </div>
             <div style="float: right">
                 {{ $cursos->links() }}
             </div>
-            
+
         </div>
         <div class="card-footer"></div>
     </div>
@@ -127,7 +134,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalEstadoPagoLabel">Tipo de Pago</h5>
+                    <h5 class="modal-title" id="modalEstadoPagoLabel">FORMULARIO DE REGISTRO</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="resetear"></button>
                 </div>

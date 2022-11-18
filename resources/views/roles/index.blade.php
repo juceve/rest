@@ -41,12 +41,12 @@ ROLES
             </thead>
             <tbody>
                 @php
-                    $i=1;
+                    $i=0;
                 @endphp
                 @foreach ($roles as $role)
                 <tr>
                     <td>
-                        {{$i++}}
+                        {{++$i}}
                     </td>
                     <td>
                         {{$role->name}}

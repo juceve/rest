@@ -18,6 +18,10 @@
     <!-- DataTables -->
     <link type="text/css" href="{{asset('admin/vendor/datatables/media/css/jquery.dataTables.min.css')}}"
         rel="stylesheet">
+    <!-- Select2 -->
+    <link type="text/css" href="{{asset('admin/vendor/select2/css/select2.min.css')}}"
+        rel="stylesheet">
+
     <link rel="icon" type="image/jpg" href="{{Storage::url('img/favicon_food.png')}}" />
     @livewireStyles
     @yield('css')
@@ -47,9 +51,7 @@
         </div>
     </main>
 
-
-
-
+  
     <!-- JQuery -->
     <script src="{{asset('admin/vendor/jquery/jquery.js')}}"></script>
     <!-- Core -->
@@ -76,6 +78,9 @@
     <script src="{{asset('admin/assets/js/volt.js')}}"></script>
     <!-- DataTables -->
     <script src="{{asset('admin/vendor/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <!-- Select2 -->
+    <script src="{{asset('admin/vendor/select2/js/select2.full.min.js')}}"></script>
+
     @livewireScripts
     @if (session('success') != '')
     {
@@ -84,6 +89,17 @@
                 'Excelente!',
                 '{{ session('success') }}',
                 'success'
+            );
+    </script>
+    }
+    @endif
+    @if (session('error') != '')
+    {
+    <script>
+        Swal.fire(
+                'Error!',
+                '{{ session('error') }}',
+                'error'
             );
     </script>
     }

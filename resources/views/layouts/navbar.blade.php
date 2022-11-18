@@ -2,6 +2,13 @@
   <div class="container-fluid px-0">
     <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
       <div class="d-flex align-items-center">
+        
+        @if (!is_null(Auth::user()->sucursale_id))
+            <h6 class="form-control form-control-sm">SUCURSAL: {{Auth::user()->sucursale->nombre}}</h6>
+        @endif
+        
+        
+        
       </div>
       <!-- Navbar links -->
       <ul class="navbar-nav align-items-center">

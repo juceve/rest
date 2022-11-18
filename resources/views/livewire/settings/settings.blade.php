@@ -29,6 +29,18 @@
             @livewire('settings.nivelcursos')
         </div>
         {{-- FIN NIVELES DE CURSOS --}}
+
+        {{-- AREAS DE TRABAJO --}}
+        <div class="col-xs-12 col-xl-6 mb-4">
+            @livewire('settings.areas')
+        </div>
+        {{-- FIN AREAS DE TRABAJO --}}
+
+        {{-- CARGOS DE EMPLEADOS --}}
+        <div class="col-xs-12 col-xl-6 mb-4">
+            @livewire('settings.cargoempleados')
+        </div>
+        {{-- FIN CARGOS DE EMPLEADOSO --}}
     </div>
     @endsection
 

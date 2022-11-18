@@ -62,6 +62,51 @@
         </a>
       </li>
       @endcan
+      @can('empleados.index')
+      <li class="nav-item ">
+        <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+          data-bs-target="#submenu-empleados">
+          <span>
+            <span class="sidebar-icon">
+              <i class="fas fa-user-shield"></i>
+            </span>
+            <span class="sidebar-text">Empleados</span>
+          </span>
+          <span class="link-arrow">
+            <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </span>
+        </span>
+        <div
+          class="multi-level collapse 
+          {{ (request()->is('empleados*')) ? 'show' : '' }}" 
+          role="list"  id="submenu-empleados" aria-expanded="false">
+
+          <ul class="flex-column nav">
+            {{-- @can('empresas.index') --}}
+            <li class="nav-item {{ (request()->is('empleados/create')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('empleados.create')}}">
+                <i class="fas fa-plus"></i>
+                <span class="sidebar-text">Registrar</span>
+              </a>
+            </li>
+            {{-- @endcan                        --}}
+
+            {{-- @can('empresas.index') --}}
+            <li class="nav-item {{ (request()->is('empleados')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('empleados.index')}}">
+                <i class="fas fa-stream"></i>
+                <span class="sidebar-text">Listado</span>
+              </a>
+            </li>
+            {{-- @endcan                        --}}
+          </ul>
+        </div>
+      </li>
+      @endcan
       <li class="nav-item ">
         <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
           data-bs-target="#submenu-app1">
@@ -81,28 +126,31 @@
         </span>
         <div
           class="multi-level collapse 
-          {{ (request()->is('cursos*')) ? 'show' : '' }}" 
+          {{ (request()->is('cursos*')) ? 'show' : '' }}
+          " 
           role="list"  id="submenu-app1" aria-expanded="false">
 
           <ul class="flex-column nav">
-            {{-- @can('empresas.index') --}}
-            <li class="nav-item {{ (request()->is('cursos*')) ? 'active' : '' }}">
+            @can('cursos.index')
+            <li class="nav-item {{ (request()->is('cursos')) ? 'active' : '' }}">
               <a class="nav-link" href="{{route('cursos')}}">
                 <i class="fas fa-sort-amount-up"></i>
                 <span class="sidebar-text">Cursos</span>
               </a>
             </li>
-            {{-- @endcan                        --}}
+            @endcan                       
+
+            
           </ul>
         </div>
       </li>
-      @if (Auth::user()->hasRole('SuperAdmin'))
-      <li class="nav-item ">
+      @can('settings')
+          <li class="nav-item ">
         <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
           data-bs-target="#submenu-app">
           <span>
             <span class="sidebar-icon">
-              <i class="fas fa-cogs"></i>
+              <i class="fas fa-tools"></i>
             </span>
             <span class="sidebar-text">Param. del Sistema</span>
           </span>
@@ -158,7 +206,9 @@
           </ul>
         </div>
       </li>
-      @endif
+      @endcan
+      
+      
 
     </ul>
   </div>

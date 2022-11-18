@@ -21,7 +21,8 @@ return new class extends Migration
             // $table->string('telefono')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            // $table->foreignId('sucursale_id')->constrained();
+            $table->foreignId('empresa_id')->nullable()->constrained();
+            $table->foreignId('sucursale_id')->nullable()->constrained();
             $table->string('avatar')->default('/avatars/default.jpg');
             $table->boolean('estado')->default(true);
             $table->rememberToken();

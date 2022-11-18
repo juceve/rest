@@ -33,4 +33,8 @@ class Empresa extends Model
     {
         return $this->hasMany('App\Models\Sucursale', 'empresa_id', 'id');
     }
+    public function users()
+    {
+        return $this->hasMany('App\Models\Users', 'empresa_id', 'id');
+    }
 }

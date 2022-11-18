@@ -71,6 +71,8 @@ $(document).ready(function () {
         },
 
     });
+
+    $('.select2').select2();
 });
 function preview_image(event) {
     var reader = new FileReader();

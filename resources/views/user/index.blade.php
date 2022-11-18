@@ -47,7 +47,7 @@ Usuarios Registrados |
 
                                     <td>{{ $usuario->name }}</td>
                                     <td>{{ $usuario->email }}</td>
-                                    <td></td>
+                                    <td> {{ $usuario->roles->count()>0?$usuario->roles->pluck('name')[0]:"N/A" }}</td>
                                     <td>
                                         @if ($usuario->estado)
                                         <span class="badge bg-success">ACTIVO</span>

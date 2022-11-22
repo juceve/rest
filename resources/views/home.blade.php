@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="card-body">
-   @dump(Auth::user()->empresa_id)
+   {{-- @dump(Auth::user()->empresa_id) --}}
   </div>
 </div>
 @endsection

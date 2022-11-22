@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Cursos;
 
 use App\Models\Curso;
 use App\Models\Nivelcurso;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -35,10 +36,10 @@ class Cursos extends Component
         $cursos = Curso::where('nombre','like','%'.$this->search.'%')                        
                         ->orderBy($this->sort,$this->direction)
                         ->paginate($this->paginate);
-        $root=session('miAsignacion');
+       
         $nivelcursos="";
-        if(!is_null($root)){
-            $nivelcursos = Nivelcurso::where('sucursale_id',$root->sucursale_id)->pluck('nombre','id');
+        if(Auth::user()->sucursale_id != ''){
+            $nivelcursos = Nivelcurso::where('sucursale_id',Auth::user()->sucursale_id)->pluck('nombre','id');
         }else{
             $nivelcursos = Nivelcurso::all()->pluck('nombre','id');
         }

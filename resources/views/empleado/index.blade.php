@@ -17,11 +17,13 @@ Empleado
                         </span>
 
                         <div class="float-right">
+                            @can('empleados.create')
                             <a href="{{ route('empleados.create') }}" class="btn btn-warning btn-sm float-right"
                                 data-placement="left">
                                 <i class="fas fa-plus"></i>
                                 Nuevo
                             </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -71,7 +73,7 @@ Empleado
                                                     class="fas fa-power-off" title="Activar"></i> </button>
                                             @endif
                                         </form> --}}
-                                        
+
 
                                         <div class="dropdown">
                                             <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
@@ -89,16 +91,16 @@ Empleado
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    {{-- @can('empleados.edit') --}}
+                                                    @can('empleados.edit')
                                                     <a class="dropdown-item"
                                                         href="{{ route('empleados.edit',$empleado->id) }}"
                                                         title="Editar"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                    {{-- @endcan --}}
+                                                    @endcan
                                                 </li>
                                                 <form action="{{ route('empleados.disable',$empleado->id) }}"
                                                     method="POST" class="desactivar">
                                                     @csrf
-                                                    {{-- @can('empleados.disable') --}}
+                                                    @can('empleados.disable')
                                                     @if ($empleado->estado)
                                                     <button type="submit" class="dropdown-item btn btn-link"><i
                                                             class="fas fa-power-off" title="Desactivar"></i>
@@ -108,15 +110,18 @@ Empleado
                                                             class="fas fa-power-off" title="Activar"></i>
                                                         Activar</button>
                                                     @endif
-                                                    {{-- @endcan --}}
+                                                    @endcan
                                                 </form>
-                                                <form action="{{ route('empleados.destroy',$empleado->id) }}" method="POST"
-                                                    class="delete">
+                                                <form action="{{ route('empleados.destroy',$empleado->id) }}"
+                                                    method="POST" class="delete">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="dropdown-item btn btn-link" title="Eliminar de BD">
+                                                    @can('empleados.destroy')
+                                                    <button type="submit" class="dropdown-item btn btn-link"
+                                                        title="Eliminar de BD">
                                                         <i class="fas fa-trash"></i> Eliminar de BD
                                                     </button>
+                                                    @endcan
                                                 </form>
                                             </ul>
                                         </div>

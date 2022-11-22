@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('estudiantes', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo',10)->unique();
+            $table->string('codigo',10)->unique()->nullable();
             $table->string('nombre');
             $table->string('cedula');
             $table->string('telefono')->nullable();
-            $table->foreignId('tutore_id')->constrained();
-            $table->foreignId('curso_id')->constrained();
+            $table->foreignId('tutore_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('curso_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('verificado')->default(true);
             $table->timestamps();
         });

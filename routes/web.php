@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\SucursaleController;
 use App\Http\Controllers\TipopagoController;
 use App\Http\Controllers\TutoreController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Clientes\Tutores;
+use App\Http\Livewire\Clientes\Vinculosestudiantes;
 use App\Http\Livewire\Cursos\Cursos;
 use App\Http\Livewire\Settings\Settings;
 use App\Http\Livewire\Sucursales;
@@ -47,3 +50,7 @@ Route::get('settings',Settings::class)->name('settings');
 Route::get('cursos', Cursos::class)->name('cursos')->middleware('can:cursos.index');
 Route::resource('empleados', EmpleadoController::class)->names('empleados');
 Route::post('empleados/{id}/disable',[EmpleadoController::class, 'disable'])->name('empleados.disable');
+
+Route::get('tutores',Tutores::class)->name('tutores')->middleware('can:tutores.index');
+Route::get('vinculosestudiantes/{id}', Vinculosestudiantes::class)->name('vinculosestudiantes');
+Route::resource('estudiantes', EstudianteController::class)->names('estudiantes');

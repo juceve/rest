@@ -5,46 +5,57 @@
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
+    <section class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="float-left">
-                            <span class="card-title">Show Estudiante</span>
-                        </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('estudiantes.index') }}"> Back</a>
+                    <div class="card-header bg-primary text-white">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <span id="card_title">
+                                    INFORMACIÓN DEL ESTUDIANTE
+                            </span>
+
+                             <div class="float-right">
+                                <a href="{{ route('estudiantes.index') }}" class="btn btn-secondary btn-sm float-right"  data-placement="left">
+                                  <i class="fas fa-arrow-left"></i>
+                                  Volver
+                                </a>
+                              </div>
                         </div>
                     </div>
 
                     <div class="card-body">
                         
-                        <div class="form-group">
-                            <strong>Codigo:</strong>
+                        <div class="form-group mb-3">
+                            <strong>Código:</strong>
                             {{ $estudiante->codigo }}
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <strong>Nombre:</strong>
                             {{ $estudiante->nombre }}
                         </div>
-                        <div class="form-group">
-                            <strong>Cedula:</strong>
+                        <div class="form-group mb-3">
+                            <strong>Cédula:</strong>
                             {{ $estudiante->cedula }}
                         </div>
-                        <div class="form-group">
-                            <strong>Telefono:</strong>
+                        <div class="form-group mb-3">
+                            <strong>Teléfono:</strong>
                             {{ $estudiante->telefono }}
                         </div>
-                        <div class="form-group">
-                            <strong>Tutore Id:</strong>
-                            {{ $estudiante->tutore_id }}
+                        <div class="form-group mb-3">
+                            <strong>Tutor:</strong>
+                            {{ $estudiante->tutore->nombre }}
                         </div>
-                        <div class="form-group">
-                            <strong>Curso Id:</strong>
-                            {{ $estudiante->curso_id }}
+                        <div class="form-group mb-3">
+                            <strong>Curso:</strong>
+                            {{ $estudiante->curso->nombre.' - '.$estudiante->curso->nivelcurso->nombre }}
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
+                            <strong>Establecimiento:</strong>
+                            {{ $estudiante->curso->nivelcurso->sucursale->nombre }}
+                        </div>
+                        <div class="form-group mb-3 d-none">
                             <strong>Verificado:</strong>
                             {{ $estudiante->verificado }}
                         </div>

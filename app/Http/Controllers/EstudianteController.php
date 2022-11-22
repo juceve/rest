@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Curso;
 use App\Models\Estudiante;
+use App\Models\Nivelcurso;
+use App\Models\Tutore;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class EstudianteController
@@ -11,6 +16,13 @@ use Illuminate\Http\Request;
  */
 class EstudianteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:estudiantes.index')->only('index');
+        $this->middleware('can:estudiantes.edit')->only('edit','update');
+        $this->middleware('can:estudiantes.create')->only('create','store');
+        $this->middleware('can:estudiantes.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +44,24 @@ class EstudianteController extends Controller
     public function create()
     {
         $estudiante = new Estudiante();
-        return view('estudiante.create', compact('estudiante'));
+        $tutores = Tutore::all();
+        $cursos = "";
+        if (Auth::user()->sucursale_id != "") {
+            $niveles = Nivelcurso::where('sucursale_id', Auth::user()->sucursale_id)->get();
+            $cursos = array();
+            $i=0;
+            foreach ($niveles as $items) {
+                $item = $items->cursos;
+                foreach($item as $curso){
+                    $cursos[$i] = $curso;
+                    $i++;
+                }                    
+            }            
+        } else {
+            $cursos = Curso::all()->pluck('nombre', 'id');
+        }
+
+        return view('estudiante.create', compact('estudiante', 'cursos','tutores'));
     }
 
     /**
@@ -43,12 +72,16 @@ class EstudianteController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Estudiante::$rules);
+        // request()->validate(Estudiante::$rules);
 
         $estudiante = Estudiante::create($request->all());
 
+        $codigo = Auth::user()->empresa_id . Auth::user()->sucursale_id . $estudiante->id;
+        $estudiante->codigo = str_pad($codigo, 10, "0", STR_PAD_LEFT);
+        $estudiante->save();
+
         return redirect()->route('estudiantes.index')
-            ->with('success', 'Estudiante created successfully.');
+            ->with('success', 'Estudiante creado correctamente.');
     }
 
     /**
@@ -73,8 +106,24 @@ class EstudianteController extends Controller
     public function edit($id)
     {
         $estudiante = Estudiante::find($id);
-
-        return view('estudiante.edit', compact('estudiante'));
+        $tutores = Tutore::all();
+        $cursos = "";
+        if (Auth::user()->sucursale_id != "") {
+            $niveles = Nivelcurso::where('sucursale_id', Auth::user()->sucursale_id)->get();
+            $cursos = array();
+            $i=0;
+            foreach ($niveles as $items) {
+                $item = $items->cursos;
+                foreach($item as $curso){
+                    $cursos[$i] = $curso;
+                    $i++;
+                }                    
+            }   
+           
+        } else {
+            $cursos = Curso::all();
+        }
+        return view('estudiante.edit', compact('estudiante','cursos','tutores'));
     }
 
     /**
@@ -91,7 +140,7 @@ class EstudianteController extends Controller
         $estudiante->update($request->all());
 
         return redirect()->route('estudiantes.index')
-            ->with('success', 'Estudiante updated successfully');
+            ->with('success', 'Estudiante editado correctamente');
     }
 
     /**
@@ -104,6 +153,6 @@ class EstudianteController extends Controller
         $estudiante = Estudiante::find($id)->delete();
 
         return redirect()->route('estudiantes.index')
-            ->with('success', 'Estudiante deleted successfully');
+            ->with('success', 'Estudiante eliminado correctamente');
     }
 }

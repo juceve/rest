@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- Primary Meta Tags -->
@@ -19,14 +20,12 @@
     <link type="text/css" href="{{asset('admin/vendor/datatables/media/css/jquery.dataTables.min.css')}}"
         rel="stylesheet">
     <!-- Select2 -->
-    <link type="text/css" href="{{asset('admin/vendor/select2/css/select2.min.css')}}"
-        rel="stylesheet">
+    <link type="text/css" href="{{asset('admin/vendor/select2/css/select2.min.css')}}" rel="stylesheet">
 
     <link rel="icon" type="image/jpg" href="{{Storage::url('img/favicon_food.png')}}" />
     @livewireStyles
     @yield('css')
 </head>
-
 <body>
     <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
         <a class="navbar-brand me-lg-5" href="home">
@@ -51,7 +50,7 @@
         </div>
     </main>
 
-  
+
     <!-- JQuery -->
     <script src="{{asset('admin/vendor/jquery/jquery.js')}}"></script>
     <!-- Core -->

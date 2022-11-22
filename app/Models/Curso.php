@@ -50,7 +50,11 @@ class Curso extends Model
     public function nivelcurso()
     {
         return $this->hasOne('App\Models\Nivelcurso', 'id', 'nivelcurso_id');
-    }
+    }    
     
+    // public function sucursale()
+    // {
+    //     return $this->hasOne(Sucursale::class, 'id', 'sucursale_id');
+    // }
 
 }

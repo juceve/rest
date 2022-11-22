@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\DB;
 
 class EmpleadoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:empleados.index')->only('index');
+        $this->middleware('can:empleados.edit')->only('edit','update');
+        $this->middleware('can:empleados.create')->only('create','store');
+        $this->middleware('can:empleados.destroy')->only('destroy');
+        $this->middleware('can:empleados.disable')->only('disable');
+    }
     public function index()
     {
         $empleados = "";
@@ -157,11 +165,18 @@ class EmpleadoController extends Controller
             $empleado->estado = false;
             $empleado->save();
 
+            $user = User::find($empleado->user_id);
+            $user->estado = false;
+            $user->save;
+
             return redirect()->route('empleados.index')
                 ->with('success', 'Empleado desactivado correctamente');
         } else {
             $empleado->estado = true;
             $empleado->save();
+            $user = User::find($empleado->user_id);
+            $user->estado = true;
+            $user->save;
 
             return redirect()->route('empleados.index')
                 ->with('success', 'Empleado activado correctamente');

@@ -52,7 +52,7 @@
         </a>
       </li>
       @endcan
-      @can('tutores.index')
+      {{-- @can('tutores.index')
       <li class="nav-item {{ (request()->is('tutores*')) ? 'active' : '' }}">
         <a href="{{route('tutores.index')}}" class="nav-link">
           <span class="sidebar-icon">
@@ -61,7 +61,54 @@
           <span class="sidebar-text">Tutores</span>
         </a>
       </li>
-      @endcan
+      @endcan --}}
+
+      <li class="nav-item ">
+        <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+          data-bs-target="#submenu-clientes">
+          <span>
+            <span class="sidebar-icon">
+              <i class="fas fa-id-card-alt"></i>
+            </span>
+            <span class="sidebar-text">Clientes</span>
+          </span>
+          <span class="link-arrow">
+            <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </span>
+        </span>
+        <div
+          class="multi-level collapse 
+          {{ (request()->is('tutores')) ? 'show' : '' }}
+          {{ (request()->is('vinculosestudiantes*')) ? 'show' : '' }}
+          {{ (request()->is('estudiantes*')) ? 'show' : '' }}" 
+          role="list"  id="submenu-clientes" aria-expanded="false">
+
+          <ul class="flex-column nav">
+            @can('tutores.index')
+            <li class="nav-item {{ (request()->is('tutores')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('tutores')}}">
+                <i class="fas fa-user-tie"></i>
+                <span class="sidebar-text">Tutores</span>
+              </a>
+            </li>
+            @endcan                       
+
+            @can('estudiantes.index')
+            <li class="nav-item {{ (request()->is('estudiantes*')) ? 'active' : '' }} {{ (request()->is('vinculosestudiantes*')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('estudiantes.index')}}">
+                <i class="fas fa-user-graduate"></i>
+                <span class="sidebar-text">Estudiantes</span>
+              </a>
+            </li>
+            @endcan                       
+          </ul>
+        </div>
+      </li>
+
       @can('empleados.index')
       <li class="nav-item ">
         <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
@@ -86,27 +133,28 @@
           role="list"  id="submenu-empleados" aria-expanded="false">
 
           <ul class="flex-column nav">
-            {{-- @can('empresas.index') --}}
+            @can('empleados.create')
             <li class="nav-item {{ (request()->is('empleados/create')) ? 'active' : '' }}">
               <a class="nav-link" href="{{route('empleados.create')}}">
                 <i class="fas fa-plus"></i>
                 <span class="sidebar-text">Registrar</span>
               </a>
             </li>
-            {{-- @endcan                        --}}
+            @endcan                       
 
-            {{-- @can('empresas.index') --}}
+            @can('empleados.index')
             <li class="nav-item {{ (request()->is('empleados')) ? 'active' : '' }}">
               <a class="nav-link" href="{{route('empleados.index')}}">
                 <i class="fas fa-stream"></i>
                 <span class="sidebar-text">Listado</span>
               </a>
             </li>
-            {{-- @endcan                        --}}
+            @endcan                       
           </ul>
         </div>
       </li>
-      @endcan
+      @endcan    
+
       <li class="nav-item ">
         <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
           data-bs-target="#submenu-app1">

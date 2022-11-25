@@ -108,6 +108,52 @@
           </ul>
         </div>
       </li>
+      @can('items.index')
+      <li class="nav-item ">
+        <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+          data-bs-target="#submenu-items">
+          <span>
+            <span class="sidebar-icon">
+              <i class="fas fa-boxes"></i>
+            </span>
+            <span class="sidebar-text">Productos</span>
+          </span>
+          <span class="link-arrow">
+            <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </span>
+        </span>
+        <div
+          class="multi-level collapse 
+          {{ (request()->is('items*')) ? 'show' : '' }}" 
+          role="list"  id="submenu-items" aria-expanded="false">
+
+          <ul class="flex-column nav">
+            @can('items.create')
+            <li class="nav-item {{ (request()->is('items/create')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('items.create')}}">
+                <i class="fas fa-plus"></i>
+                <span class="sidebar-text">Registrar</span>
+              </a>
+            </li>
+            @endcan                       
+
+            @can('items.index')
+            <li class="nav-item {{ (request()->is('items')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('items.index')}}">
+                <i class="fas fa-stream"></i>
+                <span class="sidebar-text">Listado</span>
+              </a>
+            </li>
+            @endcan                       
+          </ul>
+        </div>
+      </li>
+      @endcan 
+
 
       @can('empleados.index')
       <li class="nav-item ">

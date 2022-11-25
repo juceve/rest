@@ -2,61 +2,71 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Catitem;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\TryCatch;
 
-/**
- * Class ItemController
- * @package App\Http\Controllers
- */
+
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        $items = Item::paginate();
-
-        return view('item.index', compact('items'))
-            ->with('i', (request()->input('page', 1) - 1) * $items->perPage());
+        $this->middleware('can:items.index')->only('index');
+        $this->middleware('can:items.edit')->only('edit','update');
+        $this->middleware('can:items.create')->only('create','store');
+        $this->middleware('can:items.destroy')->only('destroy');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index()
+    {
+        $items = Item::all();
+
+        return view('item.index', compact('items'))
+            ->with('i', 0);
+    }
+
     public function create()
     {
         $item = new Item();
-        return view('item.create', compact('item'));
+        $categorias = Catitem::all()->pluck('nombre', 'id');
+        return view('item.create', compact('item', 'categorias'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        request()->validate(Item::$rules);
+        DB::beginTransaction();
+        try {
+            request()->validate(Item::$rules);
 
-        $item = Item::create($request->all());
+            $item = Item::create($request->all());
 
-        return redirect()->route('items.index')
-            ->with('success', 'Item created successfully.');
+            $file = $request->file('imagen');
+            if ($file) {
+                $extension =  $file->clientExtension();
+                $path = $file->storeAs(
+                    'img/productos',
+                    $item->id . ".$extension"
+                );
+                $item->imagen = $path;
+                $item->save();
+            } else {
+                $item->imagen = 'img/noImagen.jpg';
+                $item->save();
+            }
+
+            DB::commit();
+            return redirect()->route('items.index')
+                ->with('success', 'Item creado correctamente.');
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return redirect()->route('items.index')
+                ->with('error', 'Ocurrio un error.');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $item = Item::find($id);
@@ -64,26 +74,15 @@ class ItemController extends Controller
         return view('item.show', compact('item'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $item = Item::find($id);
-
-        return view('item.edit', compact('item'));
+        $categorias = Catitem::all()->pluck('nombre', 'id');
+        return view('item.edit', compact('item','categorias'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Item $item
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Item $item)
     {
         request()->validate(Item::$rules);
@@ -94,11 +93,7 @@ class ItemController extends Controller
             ->with('success', 'Item updated successfully');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
+
     public function destroy($id)
     {
         $item = Item::find($id)->delete();

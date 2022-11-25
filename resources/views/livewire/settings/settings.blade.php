@@ -41,6 +41,12 @@
             @livewire('settings.cargoempleados')
         </div>
         {{-- FIN CARGOS DE EMPLEADOSO --}}
+
+        {{-- CATEGORIA DE PRODUCTOS --}}
+        <div class="col-xs-12 col-xl-6 mb-4">
+            @livewire('settings.catitems')
+        </div>
+        {{-- FIN CATEGORIA DE PRODUCTOSO --}}
     </div>
     @endsection
 
@@ -52,6 +58,15 @@
                     'Excelente!',
                     message,
                     'success'
+                );
+        });
+
+        Livewire.on('error', message =>{
+            
+            Swal.fire(
+                    'Error!',
+                    message,
+                    'error'
                 );
         });
       </script>

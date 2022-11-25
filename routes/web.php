@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CatitemController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\EstudianteController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
@@ -54,3 +56,5 @@ Route::post('empleados/{id}/disable',[EmpleadoController::class, 'disable'])->na
 Route::get('tutores',Tutores::class)->name('tutores')->middleware('can:tutores.index');
 Route::get('vinculosestudiantes/{id}', Vinculosestudiantes::class)->name('vinculosestudiantes');
 Route::resource('estudiantes', EstudianteController::class)->names('estudiantes');
+Route::resource('catitems', CatitemController::class)->names('catitems');
+Route::resource('items', ItemController::class)->names('items');

@@ -32,3 +32,10 @@
     </div>
 </div>
 @endsection
+@section('js')
+    <script>
+        function selectAll(){
+            $('.mr-1').prop('checked', true);
+        }
+    </script>
+@endsection

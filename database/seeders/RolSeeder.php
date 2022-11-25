@@ -60,5 +60,10 @@ class RolSeeder extends Seeder
         Permission::create(['name' => 'estudiantes.create','grupo' => 'ESTUDIANTES', 'descripcion' => 'Crear'])->syncRoles([$role1]);
         Permission::create(['name' => 'estudiantes.edit','grupo' => 'ESTUDIANTES', 'descripcion' => 'Editar'])->syncRoles([$role1]);
         Permission::create(['name' => 'estudiantes.destroy','grupo' => 'ESTUDIANTES', 'descripcion' => 'Eliminar'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'items.index','grupo' => 'PRODUCTOS', 'descripcion' => 'Ver listado'])->syncRoles([$role1]);
+        Permission::create(['name' => 'items.create','grupo' => 'PRODUCTOS', 'descripcion' => 'Crear'])->syncRoles([$role1]);
+        Permission::create(['name' => 'items.edit','grupo' => 'PRODUCTOS', 'descripcion' => 'Editar'])->syncRoles([$role1]);
+        Permission::create(['name' => 'items.destroy','grupo' => 'PRODUCTOS', 'descripcion' => 'Eliminar'])->syncRoles([$role1]);
     }
 }

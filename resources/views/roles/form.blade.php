@@ -5,10 +5,12 @@
     <small class="text-danger">{{$message}}</small>
     @enderror
 
-    <h2 class="h3 mt-2">Lista de Permisos</h2>
+    <h2 class="h3 mt-3 mb-2">Lista de Permisos</h2>
+    <button type="button" class="btn btn-info mb-3" onclick="selectAll()">Seleccionar todos</button>
     @php
     $grupo="";
     @endphp
+    
     <div class=col-xxl-8 table-responsive ">
 
         @foreach ($permissions as $permission)

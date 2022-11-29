@@ -27,7 +27,8 @@
     <div class="card-body">
         {!! Form::model($role, ['route'=>['roles.update',$role], 'method' => 'put']) !!}
             @include('roles.form')
-            {!! Form::submit('Editar rol', ['class'=>'btn btn-primary px-5']) !!}
+            <a href="{{route('roles.index')}}" class="btn btn-secondary mt-3" style="width: 250px">Cancelar</a>
+            {!! Form::submit('Guardar cambios', ['class'=>'btn btn-primary mt-3','style'=>'width: 250px']) !!}
         {!! Form::close() !!}
     </div>
 </div>
@@ -36,6 +37,10 @@
     <script>
         function selectAll(){
             $('.mr-1').prop('checked', true);
+        }
+
+        function unSelectAll(){
+            $('.mr-1').prop('checked', false);
         }
     </script>
 @endsection

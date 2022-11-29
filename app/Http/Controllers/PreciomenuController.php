@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nivelcurso;
 use App\Models\Preciomenu;
+use App\Models\Tipomenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class PreciomenuController
@@ -32,7 +35,14 @@ class PreciomenuController extends Controller
     public function create()
     {
         $preciomenu = new Preciomenu();
-        return view('preciomenu.create', compact('preciomenu'));
+        $tipos = Tipomenu::all()->pluck('nombre','id');
+        $niveles="";
+        if (Auth::user()->sucursale_id != "") {
+            $niveles = Nivelcurso::where('sucursale_id', Auth::user()->sucursale_id)->get()->pluck('nombre', 'id');                       
+        } else {
+            $niveles = Nivelcurso::all()->pluck('nombre', 'id');
+        }
+        return view('preciomenu.create', compact('preciomenu','tipos','niveles'));
     }
 
     /**
@@ -47,8 +57,8 @@ class PreciomenuController extends Controller
 
         $preciomenu = Preciomenu::create($request->all());
 
-        return redirect()->route('preciomenus.index')
-            ->with('success', 'Preciomenu created successfully.');
+        return redirect()->route('precios.index')
+            ->with('success', 'Precio registrado correctamente.');
     }
 
     /**
@@ -73,8 +83,14 @@ class PreciomenuController extends Controller
     public function edit($id)
     {
         $preciomenu = Preciomenu::find($id);
-
-        return view('preciomenu.edit', compact('preciomenu'));
+        $tipos = Tipomenu::all()->pluck('nombre','id');
+        $niveles="";
+        if (Auth::user()->sucursale_id != "") {
+            $niveles = Nivelcurso::where('sucursale_id', Auth::user()->sucursale_id)->get()->pluck('nombre', 'id');                       
+        } else {
+            $niveles = Nivelcurso::all()->pluck('nombre', 'id');
+        }
+        return view('preciomenu.edit', compact('preciomenu', 'tipos', 'niveles'));
     }
 
     /**
@@ -90,8 +106,8 @@ class PreciomenuController extends Controller
 
         $preciomenu->update($request->all());
 
-        return redirect()->route('preciomenus.index')
-            ->with('success', 'Preciomenu updated successfully');
+        return redirect()->route('precios.index')
+            ->with('success', 'Precio editado correctamente.');
     }
 
     /**
@@ -103,7 +119,7 @@ class PreciomenuController extends Controller
     {
         $preciomenu = Preciomenu::find($id)->delete();
 
-        return redirect()->route('preciomenus.index')
-            ->with('success', 'Preciomenu deleted successfully');
+        return redirect()->route('precios.index')
+            ->with('success', 'Precio eliminado correctamente.');
     }
 }

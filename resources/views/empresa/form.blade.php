@@ -69,13 +69,21 @@
                 </div>
                 
             </div>
-
+            <div class="col-12 col-md-6">
+                <div class="form-group mb-3">
+                    {{ Form::label('moneda') }}
+                    {{ Form::select('moneda_id', $monedas,$empresa->moneda_id, ['class' => 'form-select' .
+                    ($errors->has('moneda_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione una Moneda']) }}
+                    {!! $errors->first('moneda_id', '<div class="invalid-feedback">:message</div>') !!}
+                </div>
+            </div>
             <div class="form-group mb-3 d-none">
                 {{ Form::label('estado') }}
                 {{ Form::text('estado', $empresa->estado?$empresa->estado:true, ['class' => 'form-control' . ($errors->has('estado') ? '
                 is-invalid' : ''), 'placeholder' => 'Estado']) }}
                 {!! $errors->first('estado', '<div class="invalid-feedback">:message</div>') !!}
             </div>
+
         </div>
     </div>
     

@@ -18,16 +18,13 @@ class Empresa extends Model
     'responsable' => 'required',
     'telefono_responsable' => 'required',
     'estado' => 'required',
+    'moneda_id' => 'required',
   ];
 
   protected $perPage = 20;
 
-  /**
-   * Attributes that should be mass-assignable.
-   *
-   * @var array
-   */
-  protected $fillable = ['razonsocial', 'direccion', 'telefono', 'email', 'nit', 'avatar', 'responsable', 'telefono_responsable', 'estado'];
+
+  protected $fillable = ['razonsocial', 'direccion', 'telefono', 'email', 'nit', 'avatar', 'responsable', 'telefono_responsable', 'estado','moneda_id'];
 
   public function sucursales()
     {
@@ -36,5 +33,11 @@ class Empresa extends Model
     public function users()
     {
         return $this->hasMany('App\Models\Users', 'empresa_id', 'id');
+    }
+
+   
+    public function moneda()
+    {
+        return $this->hasOne(Moneda::class, 'id', 'moneda_id');
     }
 }

@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('responsable');
             $table->string('telefono_responsable');
-            $table->boolean('estado')->default(true);            
+            $table->boolean('estado')->default(true);  
+            $table->foreignId('moneda_id')->constrained();
             $table->timestamps();
         });
     }

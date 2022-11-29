@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empresa;
+use App\Models\Moneda;
 use App\Models\Sucursale;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,8 @@ class EmpresaController extends Controller
     public function create()
     {
         $empresa = new Empresa();
-        return view('empresa.create', compact('empresa'));
+        $monedas=Moneda::all()->pluck('nombre','id');
+        return view('empresa.create', compact('empresa','monedas'));
     }
 
 
@@ -79,8 +81,8 @@ class EmpresaController extends Controller
     public function edit($id)
     {
         $empresa = Empresa::find($id);
-
-        return view('empresa.edit', compact('empresa'));
+        $monedas=Moneda::all()->pluck('nombre','id');
+        return view('empresa.edit', compact('empresa','monedas'));
     }
 
 

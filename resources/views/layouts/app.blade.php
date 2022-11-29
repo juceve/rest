@@ -22,10 +22,13 @@
     <!-- Select2 -->
     <link type="text/css" href="{{asset('admin/vendor/select2/css/select2.min.css')}}" rel="stylesheet">
 
+    <link type="text/css" href="{{asset('admin/css/custom.css')}}" rel="stylesheet">
+
     <link rel="icon" type="image/jpg" href="{{Storage::url('img/favicon_food.png')}}" />
     @livewireStyles
     @yield('css')
 </head>
+
 <body>
     <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
         <a class="navbar-brand me-lg-5" href="home">
@@ -41,6 +44,10 @@
         </div>
     </nav>
 
+    <div class="loading show d-none" id="loading">
+        <div class="spin"></div>
+    </div>
+
     <main class="content">
         @include('layouts.sidebar')
 
@@ -49,7 +56,6 @@
             @yield('content')
         </div>
     </main>
-
 
     <!-- JQuery -->
     <script src="{{asset('admin/vendor/jquery/jquery.js')}}"></script>
@@ -111,6 +117,8 @@
             $('.table-responsive').on('hide.bs.dropdown', function() {
                 $('.table-responsive').css("overflow", "auto");
             })
+
+            
     </script>
     <script src="{{asset('admin/js/custom.js')}}"></script>
     @yield('js')

@@ -40,29 +40,7 @@
         </a>
       </li>
       @endcan
-      @can('menus.index')
-      <li class="nav-item {{ (request()->is('menus*')) ? 'active' : '' }}">
-        <a href="{{route('menus.index')}}" class="nav-link" class="nav-link d-flex justify-content-between">
-          <span>
-            <span class="sidebar-icon">
-              <i class="fas fa-utensils"></i>
-            </span>
-            <span class="sidebar-text">Menus</span>
-          </span>
-        </a>
-      </li>
-      @endcan
-      {{-- @can('tutores.index')
-      <li class="nav-item {{ (request()->is('tutores*')) ? 'active' : '' }}">
-        <a href="{{route('tutores.index')}}" class="nav-link">
-          <span class="sidebar-icon">
-            <i class="fas fa-address-card"></i>
-          </span>
-          <span class="sidebar-text">Tutores</span>
-        </a>
-      </li>
-      @endcan --}}
-
+       
       <li class="nav-item ">
         <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
           data-bs-target="#submenu-clientes">
@@ -128,10 +106,19 @@
         </span>
         <div
           class="multi-level collapse 
+          {{ (request()->is('catitems*')) ? 'show' : '' }}
           {{ (request()->is('items*')) ? 'show' : '' }}" 
           role="list"  id="submenu-items" aria-expanded="false">
 
           <ul class="flex-column nav">
+            @can('items.create')
+            <li class="nav-item {{ (request()->is('catitems*')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('catitems.index')}}">
+                <i class="fas fa-tags"></i>
+                <span class="sidebar-text">Categorias</span>
+              </a>
+            </li>
+            @endcan  
             @can('items.create')
             <li class="nav-item {{ (request()->is('items/create')) ? 'active' : '' }}">
               <a class="nav-link" href="{{route('items.create')}}">
@@ -153,7 +140,59 @@
         </div>
       </li>
       @endcan 
+      {{-- @can('menus.index') --}}
+      <li class="nav-item ">
+        <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+          data-bs-target="#submenu-menus">
+          <span>
+            <span class="sidebar-icon">
+              <i class="fas fa-concierge-bell"></i>
+            </span>
+            <span class="sidebar-text">Menus</span>
+          </span>
+          <span class="link-arrow">
+            <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </span>
+        </span>
+        <div
+          class="multi-level collapse 
+          {{ (request()->is('menus*')) ? 'show' : '' }}
+          {{ (request()->is('elaborarmenu*')) ? 'show' : '' }}" 
+          role="list"  id="submenu-menus" aria-expanded="false">
 
+          <ul class="flex-column nav">
+            <li class="nav-item {{ (request()->is('programarmenu')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('programarmenu')}}">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="sidebar-text">Programa Semanal</span>
+              </a>
+            </li>  
+
+            {{-- @can('menus.create') --}}
+            <li class="nav-item {{ (request()->is('elaborarmenu*')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('elaborarmenu',0)}}">
+                <i class="fas fa-plus"></i>
+                <span class="sidebar-text">Elaborar nuevo</span>
+              </a>
+            </li>
+            {{-- @endcan                        --}}
+
+            {{-- @can('menus.index') --}}
+            <li class="nav-item {{ (request()->is('menus')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('menus.index')}}">
+                <i class="fas fa-stream"></i>
+                <span class="sidebar-text">Listado</span>
+              </a>
+            </li>
+            {{-- @endcan      --}}                            
+          </ul>
+        </div>
+      </li>
+      {{-- @endcan  --}}
 
       @can('empleados.index')
       <li class="nav-item ">
@@ -221,6 +260,7 @@
         <div
           class="multi-level collapse 
           {{ (request()->is('cursos*')) ? 'show' : '' }}
+          {{ (request()->is('precios*')) ? 'show' : '' }}
           " 
           role="list"  id="submenu-app1" aria-expanded="false">
 
@@ -233,7 +273,14 @@
               </a>
             </li>
             @endcan                       
-
+            {{-- @can('precios.index') --}}
+            <li class="nav-item {{ (request()->is('precios*')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{route('precios.index')}}">
+                <i class="fas fa-dollar-sign"></i>
+                <span class="sidebar-text">Precios</span>
+              </a>
+            </li>
+            {{-- @endcan     --}}
             
           </ul>
         </div>

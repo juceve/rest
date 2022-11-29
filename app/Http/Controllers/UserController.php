@@ -20,7 +20,7 @@ class UserController extends Controller
         $usuarios = "";
 
         if (Auth::user()->roles->pluck('name')[0] != 'SuperAdmin') {
-            $usuarios = User::where('id','>',1);
+            $usuarios = User::where('id','>',1)->get();
             return view('user.index', compact('usuarios'));
         } else {
             $usuarios = User::all();

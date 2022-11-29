@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Catitem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class CatitemController
@@ -101,9 +102,17 @@ class CatitemController extends Controller
      */
     public function destroy($id)
     {
-        $catitem = Catitem::find($id)->delete();
+        DB::beginTransaction();
+        try {
+            $catitem = Catitem::find($id)->delete();
+            DB::commit();
+            return redirect()->route('catitems.index')
+                ->with('success', 'Catitem deleted successfully');
+        } catch (\Throwable $th) {
 
-        return redirect()->route('catitems.index')
-            ->with('success', 'Catitem deleted successfully');
+            DB::rollback();
+            return redirect()->route('catitems.index')
+                ->with('error', 'Tiene productos vinculados');
+        }
     }
 }

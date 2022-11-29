@@ -18,6 +18,7 @@ $('.delete').submit(function (e) {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
+            loading();
             this.submit();
         } else if (
             result.dismiss === Swal.DismissReason.cancel
@@ -51,6 +52,7 @@ $('.desactivar').submit(function (e) {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
+            loading();
             this.submit();
         } else if (
             result.dismiss === Swal.DismissReason.cancel
@@ -81,4 +83,8 @@ function preview_image(event) {
         output.src = reader.result;
     }
     reader.readAsDataURL(event.target.files[0]);
+}
+
+function loading(){
+    $("#loading").removeClass("d-none");
 }

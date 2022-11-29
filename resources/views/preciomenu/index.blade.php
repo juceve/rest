@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Preciomenu
+    Precio de Menu | 
 @endsection
 
 @section('content')
@@ -9,25 +9,21 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-primary text-white">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Preciomenu') }}
+                                PRECIOS DE MENU
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('preciomenus.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                <a href="{{ route('precios.create') }}" class="btn btn-secondary btn-sm float-right"  data-placement="left">
+                                    <i class="fas fa-plus"></i>
+                                    Nuevo
                                 </a>
                               </div>
                         </div>
                     </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
 
                     <div class="card-body">
                         <div class="table-responsive">
@@ -36,11 +32,11 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Nivelcurso Id</th>
-										<th>Tipomenu Id</th>
-										<th>Precio</th>
+										<th>NIVEL</th>
+										<th>TIPO MENU</th>
+										<th>Precio {{Auth::user()->empresa->moneda->abreviatura}}</th>
 
-                                        <th></th>
+                                        <th style="width: 200px;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,17 +44,17 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $preciomenu->nivelcurso_id }}</td>
-											<td>{{ $preciomenu->tipomenu_id }}</td>
+											<td>{{ $preciomenu->nivelcurso->nombre }}</td>
+											<td>{{ $preciomenu->tipomenu->nombre }}</td>
 											<td>{{ $preciomenu->precio }}</td>
 
-                                            <td>
-                                                <form action="{{ route('preciomenus.destroy',$preciomenu->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('preciomenus.show',$preciomenu->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('preciomenus.edit',$preciomenu->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                            <td align="right">
+                                                <form action="{{ route('precios.destroy',$preciomenu->id) }}" method="POST" class="delete">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('precios.show',$preciomenu->id) }}" title="Ver info"><i class="fa fa-fw fa-eye"></i> </a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('precios.edit',$preciomenu->id) }}" title="Editar"><i class="fa fa-fw fa-edit"></i> </a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash" title="Eliminar de la BD"></i> </button>
                                                 </form>
                                             </td>
                                         </tr>

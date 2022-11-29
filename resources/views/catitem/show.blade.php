@@ -1,20 +1,27 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $catitem->name ?? 'Show Catitem' }}
+    Info Categoria | 
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
+    <section class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="float-left">
-                            <span class="card-title">Show Catitem</span>
-                        </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('catitems.index') }}"> Back</a>
+                    <div class="card-header bg-primary text-white">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <span id="card_title">
+                                DATOS DE CATEGORIA
+                            </span>
+
+                             <div class="float-right">
+                                <a href="{{ route('catitems.index') }}" class="btn btn-secondary btn-sm float-right"  data-placement="left">
+                                  <i class="fas fa-arrow-left"></i>
+                                  Volver
+                                </a>
+                              </div>
                         </div>
                     </div>
 

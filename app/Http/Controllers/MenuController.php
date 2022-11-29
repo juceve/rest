@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detallemenu;
 use App\Models\Menu;
+use App\Models\Tipomenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class MenuController
@@ -19,7 +22,7 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::paginate();
-
+       
         return view('menu.index', compact('menus'))
             ->with('i', (request()->input('page', 1) - 1) * $menus->perPage());
     }
@@ -32,7 +35,8 @@ class MenuController extends Controller
     public function create()
     {
         $menu = new Menu();
-        return view('menu.create', compact('menu'));
+        $tipos = Tipomenu::all()->pluck('nombre','id');
+        return view('menu.create', compact('menu','tipos'));
     }
 
     /**
@@ -101,9 +105,23 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        $menu = Menu::find($id)->delete();
+        DB::beginTransaction();
+        try {
+            Detallemenu::where('menu_id',$id)->delete();
+            $menu = Menu::find($id)->delete();
+            DB::commit();
+            return redirect()->route('menus.index')
+            ->with('success', 'Menu eliminado correctamente');
+        } catch (\Throwable $th) {           
 
-        return redirect()->route('menus.index')
-            ->with('success', 'Menu deleted successfully');
+            DB::rollback();
+            return redirect()->route('menus.index')
+            ->with('error', 'No se elimino el Menu');
+        }
+
+
+        
+
+        
     }
 }

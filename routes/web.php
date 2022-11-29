@@ -6,6 +6,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PreciomenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SucursaleController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Livewire\Clientes\Tutores;
 use App\Http\Livewire\Clientes\Vinculosestudiantes;
 use App\Http\Livewire\Cursos\Cursos;
+use App\Http\Livewire\Menu\Elaborarmenu;
+use App\Http\Livewire\Settings\Catitems;
 use App\Http\Livewire\Settings\Settings;
 use App\Http\Livewire\Sucursales;
 use Illuminate\Support\Facades\Auth;
@@ -58,3 +61,9 @@ Route::get('vinculosestudiantes/{id}', Vinculosestudiantes::class)->name('vincul
 Route::resource('estudiantes', EstudianteController::class)->names('estudiantes');
 Route::resource('catitems', CatitemController::class)->names('catitems');
 Route::resource('items', ItemController::class)->names('items');
+Route::get('elaborarmenu/{id}', Elaborarmenu::class)->name('elaborarmenu');
+Route::get('programarmenu',function(){
+
+})->name('programarmenu');
+
+Route::resource('precios', PreciomenuController::class)->names('precios');

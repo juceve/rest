@@ -1,35 +1,42 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $preciomenu->name ?? 'Show Preciomenu' }}
+    Info Precios | 
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
+    <section class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="float-left">
-                            <span class="card-title">Show Preciomenu</span>
-                        </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('preciomenus.index') }}"> Back</a>
+                    <div class="card-header bg-primary text-white">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <span id="card_title">
+                                INFORMACION DE PRECIO
+                            </span>     
+                            <div class="float-right">
+                                <a href="{{route('precios.index')}}" class="btn btn-warning btn-sm float-right"
+                                    data-placement="left">
+                                    <i class="fas fa-arrow-left"></i>
+                                    Volver
+                                </a>
+                            </div>                            
                         </div>
                     </div>
 
                     <div class="card-body">
                         
-                        <div class="form-group">
-                            <strong>Nivelcurso Id:</strong>
-                            {{ $preciomenu->nivelcurso_id }}
+                        <div class="form-group mb-3">
+                            <strong>Nivel de curso:</strong>
+                            {{ $preciomenu->nivelcurso->nombre }}
                         </div>
-                        <div class="form-group">
-                            <strong>Tipomenu Id:</strong>
-                            {{ $preciomenu->tipomenu_id }}
+                        <div class="form-group mb-3">
+                            <strong>Tipo de menu:</strong>
+                            {{ $preciomenu->tipomenu->nombre }}
                         </div>
-                        <div class="form-group">
-                            <strong>Precio:</strong>
+                        <div class="form-group mb-3">
+                            <strong>Precio {{Auth::user()->empresa->moneda->abreviatura}}:</strong>
                             {{ $preciomenu->precio }}
                         </div>
 

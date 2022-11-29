@@ -5,32 +5,35 @@
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
+    <section class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="float-left">
-                            <span class="card-title">Show Menu</span>
-                        </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('menus.index') }}"> Back</a>
+                    <div class="card-header bg-primary text-white">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <span id="card_title">
+                                LISTADO DE MENUS REGISTRADOS
+                            </span>
+
+                             <div class="float-right">
+                                <a href="{{ route('menus.index') }}" class="btn btn-secondary btn-sm float-right"  data-placement="left">
+                                  <i class="fas fa-arrow-left"></i>
+                                  Volver
+                                </a>
+                              </div>
                         </div>
                     </div>
 
                     <div class="card-body">
                         
-                        <div class="form-group">
-                            <strong>Nombre:</strong>
+                        <div class="form-group mb-3">
+                            <strong>NOMBRE:</strong>
                             {{ $menu->nombre }}
                         </div>
-                        <div class="form-group">
-                            <strong>Tipomenu Id:</strong>
-                            {{ $menu->tipomenu_id }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Descripcion:</strong>
-                            {{ $menu->descripcion }}
+                        <div class="form-group mb-3">
+                            <strong>TIPO MENU:</strong>
+                            {{ $menu->tipomenu->nombre }}
                         </div>
 
                     </div>

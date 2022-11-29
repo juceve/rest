@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Menu
+    Listado de Menu | 
 @endsection
 
 @section('content')
@@ -9,56 +9,46 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-primary text-white">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Menu') }}
+                                LISTADO DE MENUS REGISTRADOS
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('menus.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                <a href="{{ route('elaborarmenu',0) }}" class="btn btn-secondary btn-sm float-right"  data-placement="left">
+                                  <i class="fas fa-plus"></i>
+                                  Nuevo
                                 </a>
                               </div>
                         </div>
                     </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover dataTable">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
-										<th>Nombre</th>
-										<th>Tipomenu Id</th>
-										<th>Descripcion</th>
-
-                                        <th></th>
+										<th>NOMBRE</th>
+										<th>TIPO MENU</th>
+                                        <th width="30"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($menus as $menu)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
 											<td>{{ $menu->nombre }}</td>
-											<td>{{ $menu->tipomenu_id }}</td>
-											<td>{{ $menu->descripcion }}</td>
-
-                                            <td>
-                                                <form action="{{ route('menus.destroy',$menu->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('menus.show',$menu->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('menus.edit',$menu->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+											<td>{{ $menu->tipomenu->nombre }}</td>
+                                            <td align="right">
+                                                <form action="{{ route('menus.destroy',$menu->id) }}" method="POST" class="delete">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('menus.show',$menu->id) }}" title="Ver Info"><i class="fa fa-fw fa-eye"></i> </a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('elaborarmenu',$menu->id) }}" title="Editar"><i class="fa fa-fw fa-edit"></i> </a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash" title="Eliminar de la BD"></i> </button>
                                                 </form>
                                             </td>
                                         </tr>

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('catitem_id')->constrained();  
             $table->string('imagen')->nullable();
             $table->integer('stock')->nullable();
+            $table->decimal('precio',10,2)->nullable();
             $table->boolean('estado')->default(true);
             $table->timestamps();
         });

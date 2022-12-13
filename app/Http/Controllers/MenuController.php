@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Detallemenu;
+use App\Models\Item;
 use App\Models\Menu;
 use App\Models\Tipomenu;
 use Illuminate\Http\Request;
@@ -14,15 +15,17 @@ use Illuminate\Support\Facades\DB;
  */
 class MenuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        $this->middleware('can:menus.index')->only('index');
+        $this->middleware('can:menus.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $menus = Menu::paginate();
-       
+
         return view('menu.index', compact('menus'))
             ->with('i', (request()->input('page', 1) - 1) * $menus->perPage());
     }
@@ -35,8 +38,8 @@ class MenuController extends Controller
     public function create()
     {
         $menu = new Menu();
-        $tipos = Tipomenu::all()->pluck('nombre','id');
-        return view('menu.create', compact('menu','tipos'));
+        $tipos = Tipomenu::all()->pluck('nombre', 'id');
+        return view('menu.create', compact('menu', 'tipos'));
     }
 
     /**
@@ -55,25 +58,15 @@ class MenuController extends Controller
             ->with('success', 'Menu created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $menu = Menu::find($id);
-
-        return view('menu.show', compact('menu'));
+        $itemsmenu = Detallemenu::where('menu_id', $id)->get();
+        return view('menu.show', compact('menu', 'itemsmenu'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $menu = Menu::find($id);
@@ -107,21 +100,16 @@ class MenuController extends Controller
     {
         DB::beginTransaction();
         try {
-            Detallemenu::where('menu_id',$id)->delete();
+            Detallemenu::where('menu_id', $id)->delete();
             $menu = Menu::find($id)->delete();
             DB::commit();
             return redirect()->route('menus.index')
-            ->with('success', 'Menu eliminado correctamente');
-        } catch (\Throwable $th) {           
+                ->with('success', 'Menu eliminado correctamente');
+        } catch (\Throwable $th) {
 
             DB::rollback();
             return redirect()->route('menus.index')
-            ->with('error', 'No se elimino el Menu');
+                ->with('error', 'No se elimino el Menu');
         }
-
-
-        
-
-        
     }
 }

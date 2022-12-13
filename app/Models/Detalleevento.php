@@ -4,20 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Detalleevento
- *
- * @property $id
- * @property $evento_id
- * @property $menu_id
- * @property $created_at
- * @property $updated_at
- *
- * @property Evento $evento
- * @property Menu $menu
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
+
 class Detalleevento extends Model
 {
     
@@ -33,7 +20,7 @@ class Detalleevento extends Model
      *
      * @var array
      */
-    protected $fillable = ['evento_id','menu_id'];
+    protected $fillable = ['evento_id','menu_id','stock','tipo'];
 
 
     /**

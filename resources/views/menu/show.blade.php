@@ -35,7 +35,13 @@
                             <strong>TIPO MENU:</strong>
                             {{ $menu->tipomenu->nombre }}
                         </div>
-
+                        <hr>
+                        <h5>PRODUCTOS QUE SE INCLUYEN:</h5>
+                        <ul>
+                            @foreach ($itemsmenu as $item)
+                                <li>{{$item->catitem->nombre . ': ' . $item->item->nombre}}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -17,15 +17,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('evento_id')->constrained();
             $table->foreignId('menu_id')->constrained();
+            $table->integer('stock')->nullable();
+            $table->string('tipo',10)->nullable();
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+ 
     public function down()
     {
         Schema::dropIfExists('detalleeventos');

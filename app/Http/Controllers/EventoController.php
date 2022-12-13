@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detalleevento;
 use App\Models\Evento;
 use Illuminate\Http\Request;
 
@@ -105,5 +106,22 @@ class EventoController extends Controller
 
         return redirect()->route('eventos.index')
             ->with('success', 'Evento deleted successfully');
+    }
+
+    public function events()
+    {
+        $events = Evento::whereYear('fecha', date('Y'))
+                        ->get();
+        $data = array();
+        $i = 0;
+        foreach ($events as $event) {
+            $detalles = $event->detalleeventos;
+            foreach ($detalles as $detalle) {
+                $data[$i] = array("id" => $detalle->id,"title" => $detalle->menu->nombre, "start" => $detalle->evento->fecha);
+                $i++;  
+            }
+            
+        }
+        return response()->json($data);
     }
 }

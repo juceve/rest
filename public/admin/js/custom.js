@@ -88,3 +88,7 @@ function preview_image(event) {
 function loading(){
     $("#loading").removeClass("d-none");
 }
+
+function finLoading(){
+    $("#loading").addClass("d-none");
+}

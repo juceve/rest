@@ -51,7 +51,7 @@ class Elaborarmenu extends Component
     public function save()
     { 
         $this->validate();
-        if (count($this->itemsMenu) < 1) {
+        if (is_null($this->itemsMenu)) {
             $this->emit('warning', 'Debe seleccionar al menos 1 producto.');
         } else {
            
@@ -93,7 +93,7 @@ class Elaborarmenu extends Component
     public function update()
     { 
         $this->validate();
-        if (count($this->itemsMenu) < 1) {
+        if (is_null($this->itemsMenu)) {
             $this->emit('warning', 'Debe seleccionar al menos 1 producto.');
         } else {
            

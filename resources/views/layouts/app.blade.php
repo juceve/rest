@@ -21,6 +21,9 @@
         rel="stylesheet">
     <!-- Select2 -->
     <link type="text/css" href="{{asset('admin/vendor/select2/css/select2.min.css')}}" rel="stylesheet">
+    <!-- Fullcalendar -->
+    <link type="text/css" href="{{asset('admin/vendor/fullcalendar/lib/main.css')}}" rel="stylesheet">
+
 
     <link type="text/css" href="{{asset('admin/css/custom.css')}}" rel="stylesheet">
 
@@ -85,6 +88,8 @@
     <script src="{{asset('admin/vendor/datatables/media/js/jquery.dataTables.min.js')}}"></script>
     <!-- Select2 -->
     <script src="{{asset('admin/vendor/select2/js/select2.full.min.js')}}"></script>
+    <!-- Fullcalendar -->
+    <script src="{{asset('admin/vendor/fullcalendar/lib/main.js')}}"></script>
 
     @livewireScripts
     @if (session('success') != '')

@@ -39,7 +39,7 @@ class Item extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre','descripcion','catitem_id','imagen','estado'];
+    protected $fillable = ['nombre','descripcion','catitem_id','imagen','stock','precio','estado'];
 
 
     /**

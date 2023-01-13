@@ -21,7 +21,7 @@ class PreciomenuController extends Controller
      */
     public function index()
     {
-        $preciomenus = Preciomenu::paginate();
+        $preciomenus = Preciomenu::where('sucursale_id',Auth::user()->sucursale_id)->paginate();
 
         return view('preciomenu.index', compact('preciomenus'))
             ->with('i', (request()->input('page', 1) - 1) * $preciomenus->perPage());

@@ -112,4 +112,8 @@ class MenuController extends Controller
                 ->with('error', 'No se elimino el Menu');
         }
     }
+
+    public function menusemanal(){
+        return view('menu.menusemanal');
+    }
 }

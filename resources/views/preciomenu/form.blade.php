@@ -15,7 +15,9 @@
             {{ Form::text('precio', $preciomenu->precio, ['class' => 'form-control' . ($errors->has('precio') ? ' is-invalid' : ''), 'placeholder' => 'Precio']) }}
             {!! $errors->first('precio', '<div class="invalid-feedback">:message</div>') !!}
         </div>
-
+        <div class="d-none">
+            {{ Form::text('sucursale_id', Auth::user()->sucursale_id, ['class' => 'form-control' . ($errors->has('sucursale_id') ? ' is-invalid' : ''), 'placeholder' => 'Sucursal']) }}
+        </div>
     </div>
     
 </div>

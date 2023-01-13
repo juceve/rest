@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('nivelcurso_id')->constrained();
             $table->foreignId('tipomenu_id')->constrained();
             $table->decimal('precio',10,2);
+            $table->foreignId('sucursale_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

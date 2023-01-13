@@ -22,6 +22,7 @@ use App\Http\Livewire\Menu\Events;
 use App\Http\Livewire\Settings\Catitems;
 use App\Http\Livewire\Settings\Settings;
 use App\Http\Livewire\Sucursales;
+use App\Http\Livewire\Webregistro\Registro;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +38,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('web');
+    return view('welcome');
 });
 
 Auth::routes(["register" => false]);
@@ -67,3 +68,5 @@ Route::get('elaborarmenu/{id}', Elaborarmenu::class)->name('elaborarmenu');
 Route::get('programarmenu',Events::class)->name('programarmenu');
 Route::get('events',[EventoController::class,'events'])->name('events');
 Route::resource('precios', PreciomenuController::class)->names('precios');
+
+Route::get('menusemanal',[MenuController::class,'menusemanal'])->name('menusemanal');

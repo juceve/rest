@@ -54,8 +54,8 @@ class Sucursale extends Model
         return $this->hasMany('App\Models\Users', 'sucursale_id', 'id');
     }
 
-    // public function cursos()
-    // {
-    //     return $this->hasMany(Curso::class, 'sucursale_id', 'id');
-    // }
+    public function preciomenus()
+    {
+        return $this->hasMany(Preciomenu::class, 'sucursale_id', 'id');
+    }
 }

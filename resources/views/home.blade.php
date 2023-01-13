@@ -4,7 +4,7 @@
   <div class="card-header">
     <div class="row align-items-center">
       <div class="col">
-        <h2 class="fs-5 fw-bold mb-0">Bienvenidos al Admin Rest</h2>
+        <h2 class="fs-5 fw-bold mb-0">Bienvenidos a REST-CONTROL</h2>
       </div>
       {{-- <div class="col text-end">
         <a href="#" class="btn btn-sm btn-primary">See all</a>

@@ -70,7 +70,7 @@
                     <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
                     <li><a class="nav-link scrollto" href="#menu">Menú</a></li>
                     <li><a class="nav-link scrollto" href="#specials">Especiales</a></li>
-                    <li><a class="nav-link scrollto" href="#contact">Contáctanos</a></li>
+                    <li><a class="nav-link scrollto" href="{{route('customers')}}">Registrarme</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->

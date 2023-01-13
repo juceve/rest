@@ -4,21 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Preciomenu
- *
- * @property $id
- * @property $nivelcurso_id
- * @property $tipomenu_id
- * @property $precio
- * @property $created_at
- * @property $updated_at
- *
- * @property Nivelcurso $nivelcurso
- * @property Tipomenu $tipomenu
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
 class Preciomenu extends Model
 {
     
@@ -35,7 +20,7 @@ class Preciomenu extends Model
      *
      * @var array
      */
-    protected $fillable = ['nivelcurso_id','tipomenu_id','precio'];
+    protected $fillable = ['nivelcurso_id','tipomenu_id','precio','sucursale_id'];
 
 
     /**
@@ -54,5 +39,8 @@ class Preciomenu extends Model
         return $this->hasOne('App\Models\Tipomenu', 'id', 'tipomenu_id');
     }
     
-
+    public function sucursale()
+    {
+        return $this->hasOne('App\Models\Sucursale', 'id', 'sucursale_id');
+    }
 }

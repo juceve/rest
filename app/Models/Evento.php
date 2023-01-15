@@ -22,7 +22,7 @@ class Evento extends Model
 {
     
     static $rules = [
-		'fecha' => 'required',
+		'fecha' => 'required',        
 		'user_id' => 'required',
     ];
 
@@ -33,7 +33,7 @@ class Evento extends Model
      *
      * @var array
      */
-    protected $fillable = ['fecha','user_id'];
+    protected $fillable = ['fecha', 'semana', 'user_id'];
 
 
     /**

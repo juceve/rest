@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Detallemenu;
+use App\Models\Evento;
 use App\Models\Item;
 use App\Models\Menu;
 use App\Models\Tipomenu;
@@ -113,7 +114,8 @@ class MenuController extends Controller
         }
     }
 
-    public function menusemanal(){
+    public function menusemanal()
+    {
         return view('menu.menusemanal');
     }
 }

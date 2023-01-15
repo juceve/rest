@@ -86,8 +86,11 @@ class Events extends Component
         DB::beginTransaction();
         try {
             if($this->idEvento==0){
+                $fechaSegundos = strtotime($this->fecha);	
+                $semana = date('W', $fechaSegundos);
                 $evento = Evento::create([
                         'fecha' => $this->fecha,
+                        'semana' => $semana.'-'.substr($this->fecha,0,4),
                         'user_id' => Auth::user()->id,
                     ]);
                     $this->idEvento = $evento->id;

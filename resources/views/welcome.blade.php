@@ -1,15 +1,28 @@
 @extends('layouts.web2')
 
 @section('content')
-<section class="py-5">
-    <div class="container text-center animacion">
-        <img src="{{asset('img/ar_logo.png')}}" class="img-fluid">
-    </div>
-</section>
-<section class="py-5">
-    <div class="container text-center animacion">
-        <a href="{{route('menusemanal')}}" class="myButton">Ver menú semanal</a>
-    </div>
 
-</section>
+    <table style="width: 100%">
+        <tr>
+            <td align="center">
+                <div class="container animacion py-5">
+                    <img src="{{asset('img/ar_logo.png')}}" class="img-fluid">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <div class="container animacion">
+                    <a href="{{route('menusemanal')}}" class="myButton">Ver menú semanal</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+
+@endsection
+
+@section('carrito')
+@livewire('menu.carritologo')
 @endsection

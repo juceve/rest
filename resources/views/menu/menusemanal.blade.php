@@ -1,11 +1,12 @@
 @extends('layouts.web2')
 @livewireStyles
 @section('content')
-<div class="container-fluid text-center py-4 text-warning mb-3" style="background-color: #10620093">
-  <h2>MENU SEMANAL</h2>
+<div class="container-fluid text-center py-3 text-warning" style="background-color: #10620093">
+  <h5>MENU SEMANAL</h5>
 </div>
-<div class="container ">
+<div class="mt-3">
   @livewire('menu.pedidos')
 </div>
 @endsection
+
 @livewireScripts

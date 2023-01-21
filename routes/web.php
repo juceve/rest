@@ -70,3 +70,6 @@ Route::get('events',[EventoController::class,'events'])->name('events');
 Route::resource('precios', PreciomenuController::class)->names('precios');
 
 Route::get('menusemanal',[MenuController::class,'menusemanal'])->name('menusemanal');
+Route::get('example', function () {
+    return view('web');
+})->name('example');

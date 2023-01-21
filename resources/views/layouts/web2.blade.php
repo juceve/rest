@@ -19,8 +19,8 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="{{asset('web2/css/styles.css" rel="stylesheet')}}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200..900&display=swap">
-    <link rel="stylesheet" href="{{asset('admin/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
-    @notifyCss
+    <link rel="stylesheet" href="{{asset('admin/vendor/sweetalert2/dist/sweetalert2.min.css')}}">    
+    @yield('css')
     <style>
         @font-face {
             font-family: Poppins;
@@ -104,7 +104,7 @@ session_start();
             }
         }
     </style>
-    @yield('css')
+    
 </head>
 
 <body>
@@ -127,12 +127,18 @@ session_start();
                             semanal</a></li>
 
                 </ul>
-                @livewire('menu.carritologo')
+                @yield('carrito')
+                {{-- @livewire('menu.carritologo') --}}
             </div>
+            <hr>
         </div>
     </nav>
+    
+        @yield('content')
+    
+        
+    
 
-    @yield('content')
 
     <!-- Core theme JS-->
     <script src="{{asset('web2/js/scripts.js')}}"></script>

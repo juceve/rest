@@ -46,7 +46,7 @@
                                             aria-labelledby="pills-estudiantes-tab">
                                             <div class="content">
                                                 <div class="row">
-                                                    <div class="col-12 col-md-6">
+                                                    <div class="col-12 col-lg-6">
                                                         <div class="input-group mb-3">
                                                             <input type="search" class="form-control"
                                                                 placeholder="Código estudiante"
@@ -122,30 +122,40 @@
                                     <span>Formas de Pago:</span>
                                 </div>
                                 <div class="card-body">
+                                    @php $b = 0; @endphp
+                                    @if ($tipoPagos->count() > 0)                                    
+                                    @foreach ($tipoPagos as $item)
                                     <div class="form-check mb-2">
-                                        <input wire:model="formapago" class="form-check-input" type="radio" name="rbPagos" id="pagoLocal"
-                                            value="local" checked>
-                                        <label class="form-check-label" for="pagoLocal">
-                                            En el local
+                                        <input wire:model="formapago" class="form-check-input" type="radio"
+                                            name="rbPagos" id="{{$item->id}}" value="{{$item->id}}" >
+                                        <label class="form-check-label" for="{{$item->id}}">
+                                            {{$item->nombre}}
                                         </label>
                                     </div>
-                                    <div class="form-check mb-2">
-                                        <input wire:model="formapago" class="form-check-input" type="radio" name="rbPagos" id="pagoBanco"
-                                            value="bancario">
+                                    @php $b++; @endphp
+                                    @endforeach
+                                    @endif
+
+
+
+                                    {{-- <div class="form-check mb-2">
+                                        <input wire:model="formapago" class="form-check-input" type="radio"
+                                            name="rbPagos" id="pagoBanco" value="bancario">
                                         <label class="form-check-label" for="pagoBanco">
                                             Trans. Bancaria
                                         </label>
                                     </div>
                                     <div class="form-check mb-1">
-                                        <input wire:model="formapago" class="form-check-input" type="radio" name="rbPagos" id="pagoQr"
-                                            value="qr">
+                                        <input wire:model="formapago" class="form-check-input" type="radio"
+                                            name="rbPagos" id="pagoQr" value="qr">
                                         <label class="form-check-label" for="pagoQr">
                                             Qr
                                         </label>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group mb-2 mt-3">
                                         <div class="col-12 col-md-8">
-                                            <input class="form-control form-control-sm" accept="image/jpeg" id="formFileSm" type="file" wire:model="comprobante">
+                                            <input class="form-control form-control-sm" accept="image/jpeg"
+                                                id="formFileSm" type="file" wire:model="comprobante">
                                         </div>
                                     </div>
                                 </div>
@@ -155,8 +165,8 @@
                                     type="button">
                                     <i class="bi bi-chevron-left"></i> Pre
                                 </a>
-                                <button wire:click="next" wire:loading.class="bg-gray" class="btn btn-primary nextBtn btn-lg pull-right {{$dnone}}"
-                                    type="button">
+                                <button wire:click="next" wire:loading.class="bg-gray"
+                                    class="btn btn-primary nextBtn btn-lg pull-right {{$dnone}}" type="button">
                                     Procesar <i class="bi bi-check2-circle"></i>
                                 </button>
                             </div>

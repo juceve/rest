@@ -25,3 +25,11 @@ Livewire.on('alertComprobante', th => {
         'warning'
     )
 });
+
+Livewire.on('alertWarning', msg => {
+    Swal.fire(
+        'Atención!',
+        msg,
+        'warning'
+    )
+});

@@ -20,7 +20,7 @@ class Formapago extends Component
     use WithFileUploads;
     public $bCedula, $bNombre, $bColegio, $bCurso, $busquedaEst, $estudiante = null, $arrEstudiantes = array(), $dnone = "d-none";
     public $total_estudiante = 0, $tipoBusquedaEstudiante = "estudiante";
-    public $cartMenu, $countCart, $formapago = 'local', $comprobante;
+    public $cartMenu, $countCart, $formapago = '', $comprobante;
 
     public $logErrorPagos, $logErrorVentas;
 
@@ -36,7 +36,8 @@ class Formapago extends Component
     }
     public function render()
     {
-        return view('livewire.menu.formapago')->extends('layouts.web2');
+        $tipoPagos = Tipopago::all();
+        return view('livewire.menu.formapago', compact('tipoPagos'))->extends('layouts.web2');
     }
 
     public function buscarEstudiante()
@@ -79,91 +80,95 @@ class Formapago extends Component
 
     public function next()
     {
-        if ($this->countCart > 0) {
-            switch ($this->formapago) {
-                case 'local': {
-                        DB::beginTransaction();
-                        try {
-                            $venta = $this->guardaVenta(1);
-                            $this->logErrorVentas = $venta->id;
-                            DB::commit();
-                            $this->finalizaTransaccion();
-                            return redirect()->route('fintransc', $venta->id);
-                        } catch (\Throwable $th) {   
-                            DB::rollBack();
-                            if($this->logErrorVentas){
-                                $log = $this->guardaLogError($this->logErrorVentas, 'ventas', $th->getMessage());
-                            }
-                            $this->emit('alertError', 'logID: '.$log->id);
-                        }
-                    }
-                    break;
-                case 'bancario': {
-                        if (!is_null($this->comprobante)) {
+        if (($this->countCart > 0)) {
+            if ($this->formapago != '') {
+                switch ($this->formapago) {
+                    case '1': {
                             DB::beginTransaction();
                             try {
                                 $venta = $this->guardaVenta(1);
                                 $this->logErrorVentas = $venta->id;
-                                $pago = $this->guardaPago(1, 2, $venta->id);
-                                $this->logErrorPagos = $pago->id;
-
-                                $this->validate([
-                                    'comprobante' => 'image|max:1024', // 1MB Max
-                                ]);
-                                $file = $this->comprobante->storeAs('depositos/bancarios',$venta->id.".".$this->comprobante->extension());
-                                
                                 DB::commit();
                                 $this->finalizaTransaccion();
                                 return redirect()->route('fintransc', $venta->id);
                             } catch (\Throwable $th) {
                                 DB::rollBack();
-                                if($this->logErrorVentas){
+                                if ($this->logErrorVentas) {
                                     $log = $this->guardaLogError($this->logErrorVentas, 'ventas', $th->getMessage());
                                 }
-                                if($this->logErrorPagos){
-                                    $log = $this->guardaLogError($this->logErrorPagos, 'pagos', $th->getMessage());
-                                }
-                                
-                                $this->emit('alertError', 'logID: '.$log->id);
+                                $this->emit('alertError', 'logID: ' . $log->id);
                             }
-                        } else {
-                            $this->emit('alertComprobante');
                         }
-                    }
-                    break;
-                case 'qr': {
-                        if (!is_null($this->comprobante)) {
-                            DB::beginTransaction();
-                            try {
-                                $venta = $this->guardaVenta(1);
-                                $this->logErrorVentas = $venta->id;
-                                $pago = $this->guardaPago(1, 3, $venta->id);
-                                $this->logErrorPagos = $pago->id;
+                        break;
+                    case '2': {
+                            if (!is_null($this->comprobante)) {
+                                DB::beginTransaction();
+                                try {
+                                    $venta = $this->guardaVenta(1);
+                                    $this->logErrorVentas = $venta->id;
+                                    $pago = $this->guardaPago(1, 2, $venta->id);
+                                    $this->logErrorPagos = $pago->id;
 
-                                $this->validate([
-                                    'comprobante' => 'image|max:1024', // 1MB Max
-                                ]);
-                                $file = $this->comprobante->storeAs('depositos/qr',$venta->id.".".$this->comprobante->extension());
+                                    $this->validate([
+                                        'comprobante' => 'image|max:1024', // 1MB Max
+                                    ]);
+                                    $file = $this->comprobante->storeAs('depositos/bancarios', $venta->id . "." . $this->comprobante->extension());
 
-                                DB::commit();
-                                $this->finalizaTransaccion();
-                                return redirect()->route('fintransc', $venta->id);
-                            } catch (\Throwable $th) {
-                                DB::rollBack();
-                                if($this->logErrorVentas){
-                                    $log = $this->guardaLogError($this->logErrorVentas, 'ventas', $th->getMessage());
+                                    DB::commit();
+                                    $this->finalizaTransaccion();
+                                    return redirect()->route('fintransc', $venta->id);
+                                } catch (\Throwable $th) {
+                                    DB::rollBack();
+                                    if ($this->logErrorVentas) {
+                                        $log = $this->guardaLogError($this->logErrorVentas, 'ventas', $th->getMessage());
+                                    }
+                                    if ($this->logErrorPagos) {
+                                        $log = $this->guardaLogError($this->logErrorPagos, 'pagos', $th->getMessage());
+                                    }
+
+                                    $this->emit('alertError', 'logID: ' . $log->id);
                                 }
-                                if($this->logErrorPagos){
-                                    $log = $this->guardaLogError($this->logErrorPagos, 'pagos', $th->getMessage());
-                                }
-                                
-                                $this->emit('alertError', 'logID: '.$log->id);
+                            } else {
+                                $this->emit('alertComprobante');
                             }
-                        } else {
-                            $this->emit('alertComprobante');
                         }
-                    }
-                    break;
+                        break;
+                    case '3': {
+                            if (!is_null($this->comprobante)) {
+                                DB::beginTransaction();
+                                try {
+                                    $venta = $this->guardaVenta(1);
+                                    $this->logErrorVentas = $venta->id;
+                                    $pago = $this->guardaPago(1, 3, $venta->id);
+                                    $this->logErrorPagos = $pago->id;
+
+                                    $this->validate([
+                                        'comprobante' => 'image|max:1024', // 1MB Max
+                                    ]);
+                                    $file = $this->comprobante->storeAs('depositos/qr', $venta->id . "." . $this->comprobante->extension());
+
+                                    DB::commit();
+                                    $this->finalizaTransaccion();
+                                    return redirect()->route('fintransc', $venta->id);
+                                } catch (\Throwable $th) {
+                                    DB::rollBack();
+                                    if ($this->logErrorVentas) {
+                                        $log = $this->guardaLogError($this->logErrorVentas, 'ventas', $th->getMessage());
+                                    }
+                                    if ($this->logErrorPagos) {
+                                        $log = $this->guardaLogError($this->logErrorPagos, 'pagos', $th->getMessage());
+                                    }
+
+                                    $this->emit('alertError', 'logID: ' . $log->id);
+                                }
+                            } else {
+                                $this->emit('alertComprobante');
+                            }
+                        }
+                        break;
+                }
+            }else{
+                $this->emit('alertWarning','Debe seleccionar una forma de pago');
             }
         }
     }
@@ -201,10 +206,10 @@ class Formapago extends Component
             'estadopago_id' => $estadopago_id,
         ]);
         return $pago;
-    } 
+    }
 
-    public function finalizaTransaccion(){
+    public function finalizaTransaccion()
+    {
         $this->cartMenu = Cartmenu::where('session', session('idCarrito'))->delete();
-        
     }
 }

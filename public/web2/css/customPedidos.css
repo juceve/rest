@@ -16,11 +16,11 @@
     text-align: center
   }
 
-  input {
+  /* input {
     padding: 10px;
     width: 100%;
     border: 1px solid #aaaaaa
-  }
+  } */
 
   input.invalid {
     background-color: #ffdddd

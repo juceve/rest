@@ -5,7 +5,7 @@
   <h5>MENU SEMANAL</h5>
 </div>
 <div class="mt-3">
-  @livewire('menu.pedidos')
+  @livewire('menu.pedido')
 </div>
 @endsection
 

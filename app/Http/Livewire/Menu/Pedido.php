@@ -7,22 +7,19 @@ use App\Models\Evento;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
-class Pedidos extends Component
+class Pedido extends Component
 {
-    public $cart, $cartMenu = null, $countCart = 0, $semana = 0;
-
+    public $semana,$cartMenu,$countCart, $cart;
     public function mount()
     {
-        $this->cartMenu = Cartmenu::where('session', session('idCarrito'))->orderBy('fecha','asc')->get();
+        $this->cartMenu = Cartmenu::where('session', session('idCarrito'))->orderBy('fecha', 'asc')->get();
         $this->countCart = $this->cartMenu->count();
     }
-
-    protected $listeners = ['cargaContador', 'add' => 'addCart'];
-
     public function render()
     {
         $hoy = now();
-        $hoyL = "";$fechaSegundos = strtotime($hoy);       
+        $hoyL = "";
+        $fechaSegundos = strtotime($hoy);
         switch (date('w', $fechaSegundos)) {
             case 0:
                 $hoyL = "Domingo";
@@ -45,23 +42,23 @@ class Pedidos extends Component
             case 6:
                 $hoyL = "Sabado";
                 break;
-        }        
+        }
         $semana = date('W', $fechaSegundos) . '-' . date('Y');
-        if($hoyL == 'Sabado'){
+        if ($hoyL == 'Sabado') {
             $semana = date('W', $fechaSegundos) + 1;
             $semana = str_pad($semana, 2, "0", STR_PAD_LEFT) . '-' . date('Y');
             $this->semana = $semana;
-        }  
-        $fechaSegundosViernes = strtotime($hoy.' 21:00:00:00');
-        if(($hoyL == 'Viernes') && ($fechaSegundos > $fechaSegundosViernes)){
+        }
+        $fechaSegundosViernes = strtotime($hoy . ' 21:00:00:00');
+        if (($hoyL == 'Viernes') && ($fechaSegundos > $fechaSegundosViernes)) {
             $semana = date('W', $fechaSegundos) + 1;
             $semana = str_pad($semana, 2, "0", STR_PAD_LEFT) . '-' . date('Y');
             $this->semana = $semana;
-        }  
+        }
 
         $eventos = Evento::where('semana', $semana)->get();
-        return view('livewire.menu.pedidos', compact('eventos'));
-    }
+        return view('livewire.menu.pedido',compact('eventos'))->extends('layouts.web2');
+    }   
 
     public function addCart($menu_id, $fecha)
     {
@@ -74,11 +71,13 @@ class Pedidos extends Component
                 "menu_id" => $menu_id,
             ]);
             $this->cartMenu = Cartmenu::where('session', session('idCarrito'))
-                                        ->orderBy('fecha','asc')
-                                        ->get();
+                ->orderBy('fecha', 'asc')
+                ->get();
             $this->countCart = $this->cartMenu->count();
-            DB::commit();
             $this->emit('actCon', $this->countCart);
+            // $this->resetForms();
+            // $this->emit('mostrarProcesoPago');
+            DB::commit();
             $this->emit('alertSuccess');
             $this->emit('selectButton', $fecha . '-' . $menu_id);
         } catch (\Throwable $th) {
@@ -87,8 +86,5 @@ class Pedidos extends Component
         }
     }
 
-    public function nombre_dia($fecha)
-    {
-        
-    }
+    
 }

@@ -18,11 +18,12 @@ return new class extends Migration
             $table->string('recibo');                        
             $table->integer('tipopago_id');
             $table->string('tipopago');
-            $table->integer('sucursal_id');
-            $table->string('sucursal');
+            $table->integer('sucursal_id')->nullable();
+            $table->string('sucursal')->nullable();
             $table->decimal('importe',10,2);
-            $table->foreignId('venta_id')->constrained();        
-            $table->foreignId('user_id')->constrained();         
+            $table->foreignId('venta_id')->constrained();  
+            $table->foreignId('estadopago_id')->constrained();        
+            $table->foreignId('user_id')->nullable()->constrained();         
             $table->timestamps();
         });
     }

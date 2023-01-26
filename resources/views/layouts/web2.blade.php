@@ -20,11 +20,12 @@ session_start();
     <link href="{{asset('web2/css/styles.css" rel="stylesheet')}}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200..900&display=swap">
     <link rel="stylesheet" href="{{asset('admin/vendor/sweetalert2/dist/sweetalert2.min.css')}}">    
+    <link href="{{ asset('web2/css/wizard.css') }}" rel="stylesheet" id="bootstrap-css">
     @yield('css')
     <style>
         @font-face {
             font-family: Poppins;
-            src: url('{{asset('web2/fonts/Poppins.ttf')}}') format('truetype');
+            src: url('{{asset('web2/fonts/Poppins.ttf')}}') format('truetype');            
         }
 
         body {
@@ -33,6 +34,7 @@ session_start();
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
+            
 
         }
 
@@ -63,33 +65,6 @@ session_start();
             }
         }
 
-        .btnPedido {
-            box-shadow: 0px 10px 14px -7px #97c4fe;
-            background: linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
-            background-color: #3d94f6;
-            border-radius: 42px;
-            border: 1px solid #337fed;
-            display: inline-block;
-            cursor: pointer;
-            color: #ffffff;
-            font-family: Arial;
-            font-size: 22px;
-            font-weight: bold;
-            padding: 13px 52px;
-            text-decoration: none;
-            text-shadow: 0px 1px 0px #1570cd;
-        }
-
-        .btnPedido:hover {
-            background: linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
-            background-color: #1e62d0;
-        }
-
-        .btnPedido:active {
-            position: relative;
-            top: 1px;
-        }
-
 
 
 
@@ -104,7 +79,7 @@ session_start();
             }
         }
     </style>
-    
+    @livewireStyles
 </head>
 
 <body>
@@ -128,7 +103,7 @@ session_start();
 
                 </ul>
                 @yield('carrito')
-                {{-- @livewire('menu.carritologo') --}}
+                
             </div>
             <hr>
         </div>
@@ -139,7 +114,7 @@ session_start();
         
     
 
-
+@livewireScripts
     <!-- Core theme JS-->
     <script src="{{asset('web2/js/scripts.js')}}"></script>
     <!-- Bootstrap core JS-->
@@ -147,9 +122,10 @@ session_start();
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
     </script>
     <script src="{{asset('admin/vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
-    <x:notify-messages />
-    @notifyJs
+   
+    
     @yield('js')
+    
 </body>
 
 </html>

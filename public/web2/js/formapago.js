@@ -1,7 +1,7 @@
 Livewire.on('alertDanger', function () {
-    Swal.fire({        
+    Swal.fire({
         position: 'center',
-        text: 'Estudiante no encontrado',
+        text: 'Código no encontrado',
         color: '#943126',
         background: '#F5B7B1',
         showConfirmButton: false,

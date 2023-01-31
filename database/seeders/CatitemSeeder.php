@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Catitem;
+use App\Models\Estadopago;
+use App\Models\Tipopago;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -42,6 +44,31 @@ class CatitemSeeder extends Seeder
         Catitem::create([
             "nombre" => "REFRESCO",
         ]);
-        
+
+        Tipopago::create([
+            "nombre" => "EFECTIVO - LOCAL",
+            "abreviatura" => "EF",
+        ]);
+        Tipopago::create([
+            "nombre" => "TRANSFERENCIA BANCARIA",
+            "abreviatura" => "TB",
+        ]);
+        Tipopago::create([
+            "nombre" => "PAGO QR",
+            "abreviatura" => "QR",
+        ]);
+
+        Estadopago::create([
+            "nombre" => "POR PAGAR",
+            "abreviatura" => "PP",
+        ]);
+        Estadopago::create([
+            "nombre" => "PAGO REALIZADO",
+            "abreviatura" => "PR",
+        ]);
+        Estadopago::create([
+            "nombre" => "PAGO ANULADO",
+            "abreviatura" => "PA",
+        ]);
     }
 }

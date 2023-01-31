@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('detalleloncheras', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('item_id')->constrained();
+            $table->date('fecha');
+            $table->foreignId('menu_id')->constrained();
             $table->foreignId('lonchera_id')->constrained();
+            $table->boolean('entregado')->default(false);
             $table->timestamps();
         });
     }

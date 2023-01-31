@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->foreignId('estudiante_id')->constrained();
             $table->foreignId('pago_id')->constrained();
+            $table->boolean('habilitado')->default(false);
             $table->timestamps();
         });
     }

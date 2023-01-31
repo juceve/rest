@@ -58,7 +58,7 @@ class ItemController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('items.index')
+            return redirect()->route('items.create')
                 ->with('success', 'Item creado correctamente.');
         } catch (\Throwable $th) {
             DB::rollback();

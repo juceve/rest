@@ -22,7 +22,8 @@ class Detallelonchera extends Model
 {
     
     static $rules = [
-		'item_id' => 'required',
+        'fecha' => 'required',
+		'menu_id' => 'required',
 		'lonchera_id' => 'required',
     ];
 
@@ -33,15 +34,15 @@ class Detallelonchera extends Model
      *
      * @var array
      */
-    protected $fillable = ['item_id','lonchera_id'];
+    protected $fillable = ['fecha','menu_id','lonchera_id','entregado'];
 
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function item()
+    public function menu()
     {
-        return $this->hasOne('App\Models\Item', 'id', 'item_id');
+        return $this->hasOne('App\Models\Menu', 'id', 'menu_id');
     }
     
     /**

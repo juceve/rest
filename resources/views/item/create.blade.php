@@ -48,3 +48,10 @@
         </div>
     </section>
 @endsection
+@section('js')
+    <script>
+        $(document).ready(function () {
+            $('#nombre').focus();
+        });
+    </script>
+@endsection

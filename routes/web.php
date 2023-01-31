@@ -76,5 +76,5 @@ Route::resource('precios', PreciomenuController::class)->names('precios');
 
 Route::get('menusemanal',Pedido::class)->name('menusemanal');
 Route::get('resumenpedido',Resumen::class)->name('resumenpedido');
-Route::get('formapago',Formapago::class)->name('formapago');
+Route::get('formapago/{tipoBusqueda}',Formapago::class)->name('formapago');
 Route::get('fintransc/{id}', Finish::class)->name('fintransc');

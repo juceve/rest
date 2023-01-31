@@ -49,7 +49,7 @@ class Resumen extends Component
 
     public function next(){
         if($this->countCart > 0){
-            return redirect()->route('formapago');
+            return redirect()->route('formapago','e');
         }else{
             $this->emit('alertWarning','Debe seleccionar algun producto');
         }

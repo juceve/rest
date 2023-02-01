@@ -398,6 +398,8 @@ class Formapago extends Component
         $tipopago = Tipopago::find($tipopago_id);
         $pago = Pago::create([
             'recibo' => 0,
+            'sucursal_id' => $this->estudiante->curso->nivelcurso->sucursale->id,
+            'sucursal' => $this->estudiante->curso->nivelcurso->sucursale->nombre,
             'tipopago_id' => $tipopago->id,
             'tipopago' => $tipopago->nombre,
             'importe' => $this->total_estudiante,

@@ -113,7 +113,7 @@ class EmpleadoController extends Controller
             $sucursales = Sucursale::where([['empresa_id', $rootAsignacion->empresa_id], ['tipo', '<>', 'CENTRAL']])->get()->pluck('nombre', 'id');
         } else {
             $sucursales = Sucursale::all()->pluck('nombre', 'id');
-        }
+        }        
 
         return view('empleado.edit', compact('empleado', 'cargos', 'sucursales'));
     }
@@ -134,6 +134,12 @@ class EmpleadoController extends Controller
                 );
                 $empleado->avatar = $path;
                 $empleado->save();
+            }
+
+            if(!is_null($empleado->user_id)){
+                $user = User::find($empleado->user_id);
+                $user->sucursale_id = $request->sucursale_id;
+                $user->save();
             }
 
             if ($request->cbUsuario == "on") {

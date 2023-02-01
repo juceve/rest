@@ -100,7 +100,7 @@ session_start();
                     <li class="nav-item"><a class="nav-link text-warning" aria-current="page" href="/">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link text-warning" href="{{route('menusemanal')}}">Menú
                             semanal</a></li>
-
+                            <li class="nav-item"><a class="nav-link text-warning" href="{{route('home')}}">Admin</a></li>
                 </ul>
                 @yield('carrito')
                 

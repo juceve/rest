@@ -105,6 +105,7 @@ class PreciomenuController extends Controller
         request()->validate(Preciomenu::$rules);
 
         $preciomenu->update($request->all());
+       
 
         return redirect()->route('precios.index')
             ->with('success', 'Precio editado correctamente.');

@@ -54,7 +54,7 @@
 
             <div class="col-12 col-md-6 mb-3">
                 {{ Form::label('Sucursal asignada') }}
-                {!! Form::select('sucursale_id', $sucursales, $empleado->empresa_id?$empleado->empresa_id:null,
+                {!! Form::select('sucursale_id', $sucursales, $empleado->sucursale_id?$empleado->sucursale_id:null,
                 ['class'=>'form-select','placeholder'=>'Seleccione una Sucursal','required']) !!}
                 {!! $errors->first('sucursale_id', '<div class="invalid-feedback">:message</div>') !!}
             </div>

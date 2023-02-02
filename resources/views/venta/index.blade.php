@@ -23,22 +23,17 @@
                               </div>
                         </div>
                     </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
-
+                    
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                        <th>ID</th>
                                         
 										<th>Fecha</th>
 										<th>Cliente</th>
-										<th>Estadopago Id</th>
+										<th>Estado</th>
 										<th>Importe</th>
 
                                         <th></th>
@@ -47,11 +42,11 @@
                                 <tbody>
                                     @foreach ($ventas as $venta)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                            <td>{{ $venta->id }}</td>
                                             
 											<td>{{ $venta->fecha }}</td>
 											<td>{{ $venta->cliente }}</td>
-											<td>{{ $venta->estadopago_id }}</td>
+											<td>{{ $venta->estadopago->nombre }}</td>
 											<td>{{ $venta->importe }}</td>
 
                                             <td>

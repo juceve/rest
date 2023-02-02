@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
+    <section class="container-fluid">
         <div class="">
             <div class="col-md-12">
 
@@ -13,7 +13,22 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Update Venta</span>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <span id="card_title">
+                                EDITAR VENTA
+                            </span>
+    
+    
+                            <div class="float-right">
+                                <a href="{{route('ventas.index')}}" class="btn btn-warning btn-sm float-right"
+                                    data-placement="left">
+                                    <i class="fas fa-arrow-left"></i>
+                                    Volver
+                                </a>
+                            </div>
+    
+                        </div>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('ventas.update', $venta->id) }}"  role="form" enctype="multipart/form-data">

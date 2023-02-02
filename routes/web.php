@@ -19,6 +19,7 @@ use App\Http\Controllers\VentaController;
 use App\Http\Livewire\Clientes\Tutores;
 use App\Http\Livewire\Clientes\Vinculosestudiantes;
 use App\Http\Livewire\Cursos\Cursos;
+use App\Http\Livewire\Entregas\Meriendas;
 use App\Http\Livewire\Menu\Elaborarmenu;
 use App\Http\Livewire\Menu\Events;
 use App\Http\Livewire\Menu\Finish;
@@ -85,3 +86,6 @@ Route::get('fintransc/{id}', Finish::class)->name('fintransc');
 Route::resource('ventas',VentaController::class)->names('ventas');
 Route::get('vpagos',Verificacionpedidos::class)->name('vpagos');
 Route::get('appedido/{venta_id}',Aprobarpedido::class)->name('appedido');
+
+Route::get('emeriendas',Meriendas::class)->name('emeriendas');
+// Route::get('emeriendas',Meriendas::class)->name('emeriendas');

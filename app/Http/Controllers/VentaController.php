@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estadopago;
+use App\Models\Tipopago;
 use App\Models\Venta;
 use Illuminate\Http\Request;
 
@@ -73,8 +75,8 @@ class VentaController extends Controller
     public function edit($id)
     {
         $venta = Venta::find($id);
-
-        return view('venta.edit', compact('venta'));
+        $tipopagos = Estadopago::all()->pluck('nombre','id');
+        return view('venta.edit', compact('venta','tipopagos'));
     }
 
     /**
@@ -91,7 +93,7 @@ class VentaController extends Controller
         $venta->update($request->all());
 
         return redirect()->route('ventas.index')
-            ->with('success', 'Venta updated successfully');
+            ->with('success', 'Venta editada correctamente');
     }
 
     /**

@@ -40,15 +40,18 @@
                                                 @endphp
 
                                                 <button class="nav-link 
-                                        @php if($dia == get_nombre_dia(now())){ echo " active";}@endphp @php if(
-                                                    $evento->fecha < date('Y-m-d') ){ echo " disabled" ;}@endphp"
-                                                        id="nav-lun-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#nav-{{$dia}}" type="button" role="tab"
-                                                        aria-controls="nav-{{$dia}}" aria-selected="true">
-                                                        <span class="d-block d-md-none">{{strtoupper(Str::substr($dia,
-                                                            0,
-                                                            3))}}</span>
-                                                        <span class="d-none d-md-block">{{strtoupper($dia)}}</span>
+                                                @php 
+                                                $limite = $evento->fecha.' 12:00:00';
+                                                $disabled = 0;
+                                                if($evento->fecha < date('Y-m-d') || strtotime(now()) > strtotime($limite))
+                                                { echo " disabled" ;}
+                                                @endphp" id="nav-lun-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#nav-{{$dia}}" type="button" role="tab"
+                                                    aria-controls="nav-{{$dia}}" aria-selected="true">
+                                                    <span class="d-block d-md-none">{{strtoupper(Str::substr($dia,
+                                                        0,
+                                                        3))}}</span>
+                                                    <span class="d-none d-md-block">{{strtoupper($dia)}}</span>
                                                 </button>
 
                                                 @endforeach
@@ -62,8 +65,10 @@
                                             @php
                                             $dia = get_nombre_dia($evento->fecha);
                                             @endphp
-                                            <div class="tab-pane fade @php if($dia == get_nombre_dia(now())){ echo "
-                                                show active";} @endphp" id="nav-{{$dia}}" role="tabpanel"
+                                            <div class="tab-pane fade 
+                                            
+
+                                            " id="nav-{{$dia}}" role="tabpanel"
                                                 aria-labelledby="nav-{{$dia}}">
                                                 <div class="container py-3">
 

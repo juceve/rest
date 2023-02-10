@@ -437,7 +437,14 @@
         </div>
       </li>
       @endcan
-
+      <li class="nav-item {{ (request()->is('')) ? 'active' : '' }}">
+        <a href="/" class="nav-link">
+          <span class="sidebar-icon">
+            <i class="fas fa-undo-alt"></i>
+          </span>
+          <span class="sidebar-text">Ir al Inicio</span>
+        </a>
+      </li>
 
 
     </ul>

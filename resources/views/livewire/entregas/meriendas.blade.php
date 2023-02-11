@@ -44,7 +44,6 @@
         </div>
     </div>
     <div class="row {{$dnIndividual}}">
-
         <div class="col-12 col-md-4">
             <div class="card">
                 <div class="card-body">
@@ -87,8 +86,7 @@
                 </div>
             </div>
         </div>
-
-
+        @if ($dnIndividual == "")
         <div class="col-12 col-md-8">
             <div class="card ">
                 <div class="card-header text-center text-white bg-primary">
@@ -191,17 +189,14 @@
 
                     @endforeach
                     @endif
-
-
                 </div>
-
-
-
-
-
-
             </div>
         </div>
+        @endif
+
+
+
+
     </div>
 
     <div class="row {{$dnCurso}}">
@@ -249,55 +244,63 @@
                             </div>
                         </div>
                     </div>
-                    @if (!is_null($estudiantes))
+                    @if (!is_null($alumnos) && $alumnos->count() )
                     <hr>
                     <div class="mt-3 text-center">
 
                         <div class="row ">
-                            <div class="col-6 d-grid gap-2 mb-3" style="height: 50px;">
-                                <button class="btn btn-success fs-4">DESPACHAR</button>
+                            <div class="col-12 mt-3" style="height: 50px;">
+                                <h3 class="text-info align-middle"><strong>CURSO : 1A PRIMARIA</strong></h3>
                             </div>
-                            <div class="col-6 d-grid gap-2 mb-3" style="height: 50px;">
-                                <button class="btn btn-primary fs-4">CANCELAR</button>
-                            </div>
-
                             <div class="col-6 border" style="height: 30px;">
                                 <strong>MENU:</strong> MERIENDA 1
                             </div>
                             <div class="col-6 border" style="height: 30px;">
-                                <strong>CANT.:</strong> {{$estudiantes->count()}}
+                                <strong>CANT.:</strong> {{$alumnos->count()}}
                             </div>
 
-                            <div class="col-12 mt-3" style="height: 50px;">
-                                <h3 class="text-info align-middle"><strong>CURSO : 1A PRIMARIA</strong></h3>
-                            </div>
                         </div>
                     </div>
-                    <div class="table-responsive" style="background-color: white">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr align="center">
-                                    <th width="20">Nro</th>
-                                    <th>ESTUDIANTE</th>
-                                    <th>CODIGO</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                $i = 1;
-                                @endphp
-                                @foreach ($estudiantes as $estudiante)
-                                <tr>
-                                    
-                                </tr>
-                                @php
-                                $i++;
-                                @endphp
-                                @endforeach
-                            </tbody>
-                        </table>
-                        {{-- @dump($estudiantes) --}}
+
+                    @if (!is_null($alumnos))
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>NRO</th>
+                                <th>ALUMNO</th>
+                                <th>CODIGO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                            $i=1;
+                            @endphp
+                            @foreach ($alumnos as $alumno)
+                            <tr>
+                                <td>{{$i}}</td>
+                                <td>{{$alumno->estudiante}}</td>
+                                <td>{{$alumno->codigo}}</td>
+                            </tr>
+                            @php
+                            $i++;
+                            @endphp
+                            @endforeach
+
+                        </tbody>
+                    </table>
+
+                    @endif
+
+                    <div class="row mt-3">
+                        <div class="col-6 d-grid gap-2 mb-3" style="height: 50px;">
+                            <button class="btn btn-success fs-4" onclick="despacharCurso()"
+                                wire:loading.attr="disabled">DESPACHAR</button>
+                        </div>
+                        <div class="col-6 d-grid gap-2 mb-3" style="height: 50px;">
+                            <button class="btn btn-primary fs-4" wire:click="cancelarCurso">CANCELAR</button>
+                        </div>
                     </div>
+
                     @endif
                 </div>
             </div>
@@ -347,6 +350,17 @@
 
                         @endif
                     </div>
+                    <hr>
+                    <h5 class="text-success">FORMA DE PAGO</h5>
+                    @foreach ($tipopagos as $item)
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="formapagos" id="rb{{$item->id}}"
+                            value="{{$item->id}}" wire:model='tipopago'>
+                        <label class="form-check-label" for="rb{{$item->id}}">
+                            {{$item->nombre}}
+                        </label>
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -380,9 +394,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <button class="btn btn-success text-white fs-5" style="height: 100%; width: 100% "
-                                        {{-- onclick="despachar({{$detalle->id}})" --}}>
-                                        COMPRAR <br> <i class="fas fa-cash-register"></i>
+                                    <button class="btn btn-success text-white" style="height: 100%; width: 100% "
+                                        onclick="comprar({{$detalle->menu_id}},{{$detalle->menu->tipomenu_id}})"
+                                        wire:loading.attr="disabled">
+                                        COMPRA <br> <i class="fas fa-cash-register"></i>
                                     </button>
                                 </div>
                             </div>
@@ -407,9 +422,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <button class="btn btn-success text-white fs-5" style="height: 100%; width: 100% "
-                                        {{-- onclick="despachar({{$detalle->id}})" --}}>
-                                        COMPRAR <br> <i class="fas fa-cash-register"></i>
+                                    <button class="btn btn-success text-white" style="height: 100%; width: 100% "
+                                        onclick="comprar({{$detalle->menu_id}},{{$detalle->menu->tipomenu_id}})"
+                                        wire:loading.attr="disabled">
+                                        COMPRA <br> <i class="fas fa-cash-register"></i>
                                     </button>
                                 </div>
                             </div>
@@ -420,6 +436,7 @@
 
 
                     </div>
+
 
                 </div>
             </div>
@@ -467,6 +484,72 @@
                 Livewire.emit('despachar',id);
             }
             })
+        }
+
+        function despacharCurso(){
+        Swal.fire({
+            title: 'ENTREGAR PEDIDO',
+            text: "Esta seguro de entregar el pedido al curso?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'SI, entregar',
+            cancelButtonText: 'NO, cancelar'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emit('despacharCurso');
+            }
+            });
+        }
+        
+        Livewire.on('warning', msg=>{
+            Swal.fire(
+            'Atención',
+            msg,
+            'warning'
+            )
+        });
+
+        Livewire.on('sinresultados', msg=>{
+            Swal.fire(
+            'No se encontraron registros',
+            '',
+            'warning'
+            )
+        });
+
+        Livewire.on('success', msg=>{
+            Swal.fire(
+            'Excelente!',
+            msg,
+            'success'
+            )
+        });
+
+        Livewire.on('error', msg=>{
+            Swal.fire(
+            'ERROR!',
+            msg,
+            'error'
+            )
+        });
+
+        function comprar(menu_id,tipomenu_id){
+            Swal.fire({
+            title: 'REALIZAR COMPRA?',
+            text: "Esta seguro de registrar la compra?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'SI, Registrar',
+            cancelButtonText: 'NO, Cancelar'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emit('comprar',menu_id,tipomenu_id);
+            }
+            });        
         }
 </script>
 @endsection

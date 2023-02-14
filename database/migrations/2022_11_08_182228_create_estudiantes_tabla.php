@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('codigo',10)->unique()->nullable();
             $table->string('nombre');
             $table->string('cedula');
+            $table->string('correo',100)->nullable();
             $table->string('telefono')->nullable();
             $table->foreignId('tutore_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('curso_id')->nullable()->constrained()->nullOnDelete();

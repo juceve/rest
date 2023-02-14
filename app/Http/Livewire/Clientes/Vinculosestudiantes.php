@@ -16,7 +16,7 @@ class Vinculosestudiantes extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $nombre, $cedula, $telefono,$curso_id, $tutore_id, $estudiante;
+    public $nombre, $cedula, $correo,$telefono,$curso_id, $tutore_id, $estudiante;
 
     protected $listeners = ['render', 'store', 'edit', 'resetear', 'destroy'];
     protected $rules = [
@@ -65,6 +65,7 @@ class Vinculosestudiantes extends Component
         $estudiante = new Estudiante();
         $estudiante->nombre = $this->nombre;
         $estudiante->cedula = $this->cedula;
+        $estudiante->correo = $this->correo;
         $estudiante->telefono = $this->telefono;
         $estudiante->curso_id = $this->curso_id;
         $estudiante->tutore_id = $this->tutore_id;
@@ -84,6 +85,7 @@ class Vinculosestudiantes extends Component
         $this->estudiante = Estudiante::find($id);
         $this->nombre = $this->estudiante->nombre;
         $this->cedula = $this->estudiante->cedula;
+        $this->correo = $this->estudiante->correo;
         $this->telefono = $this->estudiante->telefono;
         $this->curso_id = $this->estudiante->curso_id;
     }
@@ -103,6 +105,7 @@ class Vinculosestudiantes extends Component
     {
         $this->estudiante->nombre = $this->nombre;
         $this->estudiante->cedula = $this->cedula;
+        $this->estudiante->correo = $this->correo;
         $this->estudiante->telefono = $this->telefono;
         $this->estudiante->curso_id = $this->curso_id;
         $this->validate();

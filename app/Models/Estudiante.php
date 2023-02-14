@@ -4,26 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Estudiante
- *
- * @property $id
- * @property $codigo
- * @property $nombre
- * @property $cedula
- * @property $telefono
- * @property $tutore_id
- * @property $curso_id
- * @property $verificado
- * @property $created_at
- * @property $updated_at
- *
- * @property Curso $curso
- * @property Lonchera[] $loncheras
- * @property Tutore $tutore
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
 class Estudiante extends Model
 {
     
@@ -43,7 +23,7 @@ class Estudiante extends Model
      *
      * @var array
      */
-    protected $fillable = ['codigo','nombre','cedula','telefono','tutore_id','curso_id','verificado'];
+    protected $fillable = ['codigo','nombre','cedula','correo','telefono','tutore_id','curso_id','verificado'];
 
 
     /**

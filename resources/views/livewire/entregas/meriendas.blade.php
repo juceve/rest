@@ -1,6 +1,6 @@
 <div>
     {{-- BOTONERAS --}}
-    <h3 class="text-center mb-4">ENTREGA DE MERIENDAS</h3>
+    <h3 class="text-center mb-4 text-success">ENTREGA DE PRODUCTOS</h3>
     <div class="mb-2">
         <div class="d-block d-md-none">
             <div class="row">

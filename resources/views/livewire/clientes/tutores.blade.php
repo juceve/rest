@@ -187,6 +187,12 @@
                             <input type="text" class="form-control" wire:model.defer="cedula">
                         </div>
                         <div class="col-4 mb-2">
+                            <label for="">CORREO</label>
+                        </div>
+                        <div class="col-8 mb-2">
+                            <input type="text" class="form-control" wire:model.defer="correo">
+                        </div>
+                        <div class="col-4 mb-2">
                             <label for="">TELEFONO</label>
                         </div>
                         <div class="col-8 mb-2">

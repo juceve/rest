@@ -17,7 +17,7 @@ class Tutores extends Component
 
     public $sort = 'id', $direction = 'desc';
 
-    public $nombre, $cedula, $telefono, $tutor;
+    public $nombre, $cedula, $telefono, $tutor,$correo;
 
     protected $listeners = ['render', 'store', 'edit', 'resetear', 'destroy'];
     protected $rules = [
@@ -48,11 +48,12 @@ class Tutores extends Component
         $tutor = new Tutore();
         $tutor->nombre = $this->nombre;
         $tutor->cedula = $this->cedula;
+        $tutor->correo = $this->correo;
         $tutor->telefono = $this->telefono;
         $this->validate();
         $tutor->save();
 
-        $this->reset('nombre', 'cedula');
+        $this->reset('nombre', 'cedula', 'telefono', 'tutor', 'correo');
         $this->emit('alert', 'Tutor creado correctamente');
     }
 
@@ -61,6 +62,7 @@ class Tutores extends Component
         $this->tutor = Tutore::find($id);
         $this->nombre = $this->tutor->nombre;
         $this->cedula = $this->tutor->cedula;
+        $this->correo = $this->correo;
         $this->telefono = $this->tutor->telefono;
     }
 
@@ -72,17 +74,18 @@ class Tutores extends Component
 
     public function resetear()
     {
-        $this->reset('nombre', 'cedula', 'telefono', 'tutor');
+        $this->reset('nombre', 'cedula', 'telefono', 'tutor', 'correo');
     }
 
     public function update()
     {
         $this->tutor->nombre = $this->nombre;
         $this->tutor->cedula = $this->cedula;
+        $this->tutor->correo = $this->correo;
         $this->tutor->telefono = $this->telefono;
         $this->validate();
         $this->tutor->save();
-        $this->reset('nombre', 'cedula', 'telefono', 'tutor');
+        $this->reset('nombre', 'cedula', 'telefono', 'tutor', 'correo');
         $this->emit('alert', 'Tutor editado correctamente');
     }
 

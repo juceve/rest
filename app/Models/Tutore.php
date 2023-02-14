@@ -33,7 +33,7 @@ class Tutore extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre','cedula','telefono'];
+    protected $fillable = ['nombre','cedula','correo','telefono'];
 
 
     /**

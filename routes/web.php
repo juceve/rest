@@ -66,4 +66,4 @@ Route::resource('ventas', VentaController::class)->names('ventas');
 Route::get('vpagos', Verificacionpedidos::class)->name('vpagos');
 Route::get('appedido/{venta_id}', Aprobarpedido::class)->name('appedido');
 Route::get('emeriendas', Meriendas::class)->name('emeriendas');
-Route::get('/post', Membresias::class)->name('post');
+Route::get('membresias',Membresias::class)->name('membresias');

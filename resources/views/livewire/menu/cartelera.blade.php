@@ -7,7 +7,7 @@
         @if ($eventos->count() > 0)
     <div class="row justify-content-center">
         @foreach ($eventos as $item)
-        <div class="col-12 col-md-4 mb-3">
+        <div class="col-12 col-lg-4 mb-3">
             <div class="card" style="height: 100%">
                 <div class="card-header text-white bg-{{$colores[$i]}} text-center"><small>{{fechaes($item->fecha)}}</small> </div>
                 <div class="card-body">
@@ -74,7 +74,7 @@ $meses_ES = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
 $meses_EN = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
 "November", "December");
 $nombreMes = str_replace($meses_EN, $meses_ES, $mes);
-return $nombredia . " " . $numeroDia . " de " . $nombreMes . " de " . $anio;
+return $nombredia . " " . $numeroDia . " de " . $nombreMes;
 }
 
 @endphp

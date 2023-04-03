@@ -100,11 +100,14 @@ class PreciomenuController extends Controller
      * @param  Preciomenu $preciomenu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Preciomenu $preciomenu)
+    public function update(Request $request, Preciomenu $precio)
     {
         request()->validate(Preciomenu::$rules);
-
-        $preciomenu->update($request->all());
+        $preciomenu = Preciomenu::find($precio->id);
+        $preciomenu->nivelcurso_id = $request->nivelcurso_id;
+        $preciomenu->tipomenu_id = $request->tipomenu_id;
+        $preciomenu->precio = $request->precio;
+        $preciomenu->save();
        
 
         return redirect()->route('precios.index')

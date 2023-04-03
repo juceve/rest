@@ -371,7 +371,8 @@
                     <span class=" fs-5"><strong>COMPRAR PRODUCTOS PARA HOY</strong> </span>
                 </div>
                 <div class="card-body">
-                    <div class="container">
+                    @if (!is_null($detalleDia))
+                         <div class="container">
 
 
                         @if ($detalleDia->count() > 0)
@@ -436,8 +437,7 @@
 
 
                     </div>
-
-
+                    @endif      
                 </div>
             </div>
         </div>

@@ -99,7 +99,7 @@ session_start();
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 ">
                     <li class="nav-item"><a class="nav-link text-warning" aria-current="page" href="/">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link text-warning" href="{{route('menusemanal')}}">Realizar Pedidos</a></li>
-                    {{-- <li class="nav-item"><a class="nav-link text-warning" href="{{route('calle')}}">Membresias</a></li> --}}
+                    <li class="nav-item"><a class="nav-link text-warning" href="{{route('membresias')}}">Membresias</a></li>
                     <li class="nav-item"><a class="nav-link text-warning" href="{{route('home')}}">Admin</a></li>
                 </ul>
                 @yield('carrito')
